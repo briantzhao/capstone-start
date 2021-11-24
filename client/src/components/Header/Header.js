@@ -19,7 +19,7 @@ export default function Header() {
             >
           </li> */}
           <li>
-            <NavLink to="/sets">Cards & Sets</NavLink>
+            <NavLink to="/sets">{"Cards & Sets"}</NavLink>
           </li>
           <li>
             <NavLink to="/news">Recent News</NavLink>

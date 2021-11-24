@@ -5,14 +5,23 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import Header from "./components/Header";
+import HomePage from "./pages/HomePage/HomePage";
+import Header from "./components/Header/Header";
+import CollectionPage from "./pages/CollectionPage/CollectionPage";
+import DeckPage from "./pages/DeckPage/DeckPage";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
-        <Switch></Switch>
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/collection" component={CollectionPage} />
+          <Route path="/decks" component={DeckPage} />
+          <Route path="/add" component={Form} />
+          <Route path="/edit/:id" component={Form} />
+        </Switch>
       </Router>
     </div>
   );

@@ -1,6 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
-import { Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class HomePage extends Component {
   state = {};
@@ -8,26 +8,6 @@ export default class HomePage extends Component {
   render() {
     return (
       <main className="page-main">
-        <nav>
-          <Switch></Switch>
-          <ul>
-            <li>
-              <Link to="" className="collection-link">
-                Decks
-              </Link>
-            </li>
-            <li>
-              <Link to="" className="collection-link">
-                Cards
-              </Link>
-            </li>
-            <li>
-              <Link to="" className="collection-link">
-                Wishlist
-              </Link>
-            </li>
-          </ul>
-        </nav>
         <section className="entry">
           <h2 className="entry__title">Enter Your Cards</h2>
           <form id="card-entry" className="entry__form">
