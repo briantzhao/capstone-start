@@ -107,6 +107,78 @@ export default class Form extends Component {
     this.props.history.push("/collection");
   };
   render() {
-    return <form className="form"></form>;
+    return (
+      <form className="form" onSubmit={this.handleSubmit}>
+        <section className="form__card-section">
+          <Input
+            label="Card"
+            name="cardName"
+            type="text"
+            value={this.state.cardName}
+            onChange={this.handleChange}
+            valid={this.state.cardNameValid}
+          />
+          <button className="form__submit--card" onClick={this.submitCard}>
+            Submit
+          </button>
+        </section>
+        <label className="form__label">
+          Set Name
+          <select
+            className={
+              this.state.setNameValid
+                ? "form__field"
+                : "form__field form__field--error"
+            }
+            placeholder="Please Select"
+            name="set"
+            onChange={this.handleDropdown}
+          >
+            <option value="" selected disabled hidden>
+              Please Select
+            </option>
+            {this.state.setNameList.map((set) => {
+              return (
+                <option key={set.split(",")[0]} value={set}>
+                  {set.split(",")[1]}
+                </option>
+              );
+            })}
+          </select>
+        </label>
+        <Input
+          label="Quantity"
+          name="quantity"
+          type="number"
+          value={this.state.quantity}
+          onChange={this.handleChange}
+          valid={this.state.quantityValid}
+        />
+        <Input
+          label="Foil"
+          name="foil"
+          type="radio"
+          value="foil"
+          onChange={this.handleChange}
+          valid={null}
+        />
+        <Input
+          label="Non-Foil"
+          name="foil"
+          type="radio"
+          value="nonfoil"
+          onChange={this.handleChange}
+          valid={this.state.foilValid}
+        />
+        <section className="form__buttons">
+          <Link to="/collection">
+            <button className="form__btn--cancel">Cancel</button>
+          </Link>
+          <button className="form__btn--submit" onClick={this.handleSubmit}>
+            + Add Card
+          </button>
+        </section>
+      </form>
+    );
   }
 }
