@@ -21,9 +21,13 @@ export default function CardTable({ editable, cardsList, getItem }) {
               </Link>
               <div
                 className="card-table__item__btn--delete"
-                onClick={() => {
-                  getItem(id);
-                }}
+                onClick={
+                  getItem
+                    ? () => {
+                        getItem(id);
+                      }
+                    : null
+                }
               >
                 Delete
               </div>
@@ -39,9 +43,13 @@ export default function CardTable({ editable, cardsList, getItem }) {
             </Link>
             <div
               className="card-table__item__btn--delete card-table__item__btn--mobile"
-              onClick={() => {
-                getItem(id);
-              }}
+              onClick={
+                getItem
+                  ? () => {
+                      getItem(id);
+                    }
+                  : null
+              }
             >
               Delete
             </div>
