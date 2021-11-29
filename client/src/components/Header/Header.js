@@ -1,4 +1,4 @@
-import logo from "../NavLinkssets/logos/Details-About-Car-Truck-Window-Mtg-Magic-The-Gathering-Mana-Forest-V2-Decal__45726.1506656063.jpg";
+import logo from "../../assets/logos/Details-About-Car-Truck-Window-Mtg-Magic-The-Gathering-Mana-Forest-V2-Decal__45726.1506656063.jpg";
 import { NavLink } from "react-router-dom";
 
 export default function Header() {

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function CardTable({ editable, cardsList, getItem }) {
   <table className="card-table">
     <tr className="card-table__headers">

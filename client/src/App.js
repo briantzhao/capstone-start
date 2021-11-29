@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import Header from "./components/Header/Header";
 import CollectionPage from "./pages/CollectionPage/CollectionPage";
 import DeckPage from "./pages/DeckPage/DeckPage";
+import Form from "./components/Form/Form";
 
 function App() {
   return (

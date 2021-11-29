@@ -13,11 +13,11 @@ export default function DeleteModal({
       className="delete-modal"
       overlayClassName="delete-modal__overlay"
       onRequestClose={() => {
-        hideModalI();
+        hideModal();
       }}
     >
       <div className="delete-modal__top">
-        <button className="delete-modal__exit" onClick={props.hideModal}>
+        <button className="delete-modal__exit" onClick={hideModal}>
           &times;
         </button>
         <h1 className="delete-modal__heading">Delete {currentCard}?</h1>

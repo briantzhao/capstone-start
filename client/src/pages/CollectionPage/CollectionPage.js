@@ -2,6 +2,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import CardTable from "../../components/CardTable/CardTable";
 import DeleteModal from "../../components/DeleteModal/DeleteModal";
+import { Component } from "react";
 
 const API_URL = "http://localhost:8080/";
 
