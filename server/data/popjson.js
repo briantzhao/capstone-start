@@ -56,7 +56,6 @@ const next = () => {
       });
     });
 };
-next();
 
 // for (let i = 1; i <= 15812; i++) {
 //   console.log("call number: ", i);
