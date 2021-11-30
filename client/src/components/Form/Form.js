@@ -7,6 +7,7 @@ const API_URL = "http://localhost:8080/";
 
 export default class Form extends Component {
   state = {
+    cardID: "",
     cardName: "",
     cardNameValid: true,
     setID: "",
@@ -62,7 +63,7 @@ export default class Form extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { cardName, setID, setName, quantity, foil } = this.state;
+    const { cardID, cardName, setID, setName, quantity, foil } = this.state;
     if (!(cardName, setName, quantity, foil)) {
       alert("Please fill out all fields in the form");
       this.validate("cardName", cardName);
@@ -93,7 +94,8 @@ export default class Form extends Component {
     } else {
       axios
         .post(`${API_URL}collections/`, {
-          cardName,
+          id: cardID,
+          name: cardName,
           setID,
           setName,
           quantity,
