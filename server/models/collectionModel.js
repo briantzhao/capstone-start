@@ -75,7 +75,6 @@ const updateQuantity = (userID, cardID, newQuantity) => {
   const collArray = getAll();
   const userIndex = getIndex(userID, collArray);
   if (userIndex >= 0) {
-    console.log(collArray[userIndex]);
     const cardIndex = getIndex(cardID, collArray[userIndex].collection);
     if (cardIndex >= 0) {
       if (newQuantity === 0) {

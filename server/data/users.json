@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "email": "jon.watts@watts.com",
+    "password": ";lasdkjfldksflkdsabsakjbfd",
+    "firstName": "Jon",
+    "lastName": "Watts"
+  },
+  {
+    "email": "brian.zhao@brianzhao.com",
+    "password": "$2a$08$naW779B5EXoAKtGI7aWDK.72jknC/RTKsFTZHyJc7QjY4kzZoYsb.",
+    "firstName": "Brian",
+    "lastName": "Zhao",
+    "id": 2
+  }
+]
