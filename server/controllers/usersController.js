@@ -16,7 +16,7 @@ exports.signUpUser = (req, res) => {
       const token = jwt.sign({ email: newUser.email }, process.env.JWT_SECRET, {
         expiresIn: "24h",
       });
-      res.status(201).json({ newUser, token });
+      res.status(201).json({ user: { ...newUser, password: null }, token });
     })
     .catch(() => {
       res.status(400).json({ Message: "Please enter required information" });

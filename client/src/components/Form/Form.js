@@ -64,7 +64,7 @@ export default class Form extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { cardID, cardName, setID, setName, quantity, foil } = this.state;
-    if (!(cardName, setName, quantity, foil)) {
+    if (!(cardName && setName && quantity && foil)) {
       alert("Please fill out all fields in the form");
       this.validate("cardName", cardName);
       this.validate("setName", setName);
@@ -94,7 +94,7 @@ export default class Form extends Component {
     } else {
       axios
         .post(`${API_URL}collections/`, {
-          id: cardID,
+          uid: cardID,
           name: cardName,
           setID,
           setName,

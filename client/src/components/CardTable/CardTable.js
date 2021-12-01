@@ -4,21 +4,21 @@ export default function CardTable({ editable, cardsList, getItem }) {
   <table className="card-table">
     <tr className="card-table__headers">
       <th className="card-table__label">Card Name</th>
-      <th className="card-table__label">Set Name</th>
+      <th className="card-table__label">Set</th>
       <th className="card-table__label">Quantity</th>
       <th className="card-table__label">Price</th>
       {editable && <th className="card-table__label">Actions</th>}
     </tr>
-    {cardsList.map(({ uid, name, setName, quantity, price }) => {
+    {cardsList.map(({ id, uid, name, set, quantity, price }) => {
       <div key={uid}>
         <tr className="card-table__single">
           <td className="card-table__item">{name}</td>
-          <td className="card-table__item">{setName}</td>
+          <td className="card-table__item">{set.toUpperCase()}</td>
           <td className="card-table__item">{quantity}</td>
           <td className="card-table__item">{price}</td>
           {editable && (
             <td className="card-table__item">
-              <Link to="/edit">
+              <Link to={`/edit/${userid}/${id}`}>
                 <div className="card-table__item__btn--edit">Edit</div>
               </Link>
               <div

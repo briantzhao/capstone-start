@@ -41,7 +41,9 @@ const add = (userID, card) => {
   const collArray = getAll();
   const userIndex = getIndex(userID, collArray);
   if (userIndex >= 0) {
-    collArray[userIndex].collection.push(card);
+    const newCardID = collArray[userIndex].collection.length + 1;
+    const collCard = { ...card, id: newCardID };
+    collArray[userIndex].collection.push(collCard);
     fs.writeFileSync(collFile, JSON.stringify(collArray));
     return collArray[userIndex].collection;
   }

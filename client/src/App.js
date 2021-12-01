@@ -11,18 +11,23 @@ import CollectionPage from "./pages/CollectionPage/CollectionPage";
 import DeckPage from "./pages/DeckPage/DeckPage";
 import Form from "./components/Form/Form";
 import { Component } from "react";
+import SignupPage from "./pages/SignupPage/SignupPage";
 
 class App extends Component {
   state = {
     loggedIn: false,
+    user: null,
   };
 
   handleLogout = () => {
     sessionStorage.removeItem("token");
-    this.setState({ loggedIn: false });
+    this.setState({ loggedIn: false, user: null });
   };
 
-  handleLogin = () => {};
+  handleLogin = (data) => {
+    sessionStorage.setItem("token", data.token);
+    this.setState({ loggedIn: true, user: data.user });
+  };
 
   render() {
     return (
@@ -31,15 +36,34 @@ class App extends Component {
           <Header
             loggedIn={this.state.loggedIn}
             handleLogout={this.handleLogout}
+            user={this.state.user}
           />
           <Switch>
-            <Route path="/" exact component={HomePage} />
-            <Route path="/collection" component={CollectionPage} />
-            <Route path="/decks" component={DeckPage} />
+            <Route
+              path="/"
+              exact
+              render={(props) => {
+                <HomePage {...props} user={this.state.user} />;
+              }}
+            />
+            <Route path="/collection/:userid" component={CollectionPage} />
+            <Route path="/decks" exact component={DeckPage} />
             <Route path="/decks/:id" component={DeckPage} />
             <Route path="/add" component={Form} />
-            <Route path="/edit/:id" component={Form} />
+            <Route path="/edit/:userid/:id" component={Form} />
             <Route path="/login" component={LoginPage} />
+            <Route
+              path="/signup"
+              render={(props) => {
+                <SignupPage {...props} handleLogin={this.handleLogin} />;
+              }}
+            />
+            <Route
+              path="/login"
+              render={(props) => {
+                <LoginPage {...props} handleLogin={this.handleLogin} />;
+              }}
+            />
           </Switch>
         </Router>
       </div>

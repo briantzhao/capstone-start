@@ -15,7 +15,7 @@ export default class CollectionPage extends Component {
 
   componentDidMount() {
     axios
-      .get(`${API_URL}collections/`)
+      .get(`${API_URL}collections/${this.props.match.params.userid}`)
       .then(({ data }) => {
         this.setState({ collection: data });
       })

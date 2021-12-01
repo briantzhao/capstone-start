@@ -1,6 +1,7 @@
 import CardTable from "../../components/CardTable/CardTable";
 import axios from "axios";
 import { Component } from "react";
+import "./DeckPage.scss";
 
 const API_URL = "http://localhost:8080/";
 export default class DeckPage extends Component {
