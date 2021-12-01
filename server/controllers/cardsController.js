@@ -3,7 +3,8 @@ const card = require("../models/cardModel");
 //finds all versions of a given card name
 exports.filter = (req, res) => {
   const { cardName } = req.params;
-  const cardNameFixed = cardName.replace(/_/g, " ");
+  let cardNameFixed = cardName.replace(/_/g, " ");
+  cardNameFixed = cardNameFixed.replace(/%2F/gi, "/");
   const cards = card.getCardsByName(cardNameFixed);
   if (!cards) {
     res.status(400).json({ Message: "Please provide a valid card name." });

@@ -9,10 +9,10 @@ export default function CardTable({ editable, cardsList, getItem }) {
       <th className="card-table__label">Price</th>
       {editable && <th className="card-table__label">Actions</th>}
     </tr>
-    {cardsList.map(({ id, cardName, setName, quantity, price }) => {
-      <div key={id}>
+    {cardsList.map(({ uid, name, setName, quantity, price }) => {
+      <div key={uid}>
         <tr className="card-table__single">
-          <td className="card-table__item">{cardName}</td>
+          <td className="card-table__item">{name}</td>
           <td className="card-table__item">{setName}</td>
           <td className="card-table__item">{quantity}</td>
           <td className="card-table__item">{price}</td>

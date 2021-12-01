@@ -1,7 +1,8 @@
 import logo from "../../assets/logos/Details-About-Car-Truck-Window-Mtg-Magic-The-Gathering-Mana-Forest-V2-Decal__45726.1506656063.jpg";
 import { NavLink } from "react-router-dom";
+import { Component } from "react";
 
-export default function Header() {
+export default function Header({ loggedIn, handleLogout }) {
   return (
     <header className="header">
       <div className="header__logo">
@@ -13,22 +14,26 @@ export default function Header() {
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
+          <li>
+            <NavLink to="/collection">Collection</NavLink>
+          </li>
           {/* <li>
-            <a href="./collection.html" className="current-link">
-              Your Collection</NavLink
-            >
+            <NavLink to="/decks">Decks</NavLink>
           </li> */}
-          <li>
-            <NavLink to="/sets">{"Cards & Sets"}</NavLink>
-          </li>
-          <li>
-            <NavLink to="/news">Recent News</NavLink>
-          </li>
-          <li>
+          {/* <li>
             <NavLink to="/market">Market Trends</NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
+      {loggedIn ? (
+        <button className="header__logout" onClick={handleLogout}>
+          Log Out
+        </button>
+      ) : (
+        <Link to="/login">
+          <button className="header__login">Log In</button>
+        </Link>
+      )}
     </header>
   );
 }
