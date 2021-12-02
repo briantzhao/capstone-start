@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./CardTable.scss";
 
 export default function CardTable({ editable, cardsList, userid }) {
   if (cardsList !== null) {
@@ -49,14 +50,14 @@ export default function CardTable({ editable, cardsList, userid }) {
                       </td>
                     )}
                   </tr>
-                  {editable && (
+                  {/* {editable && (
                     <td className="card-table__item--mobile">
                       <Link to={`/edit/${userid}/${uid}`}>
                         <div className="card-table__item__btn--edit card-table__item__btn--mobile">
                           Edit
                         </div>
                       </Link>
-                      {/* <div
+                      <div
               className="card-table__item__btn--delete card-table__item__btn--mobile"
               onClick={
                 getItem
@@ -67,9 +68,9 @@ export default function CardTable({ editable, cardsList, userid }) {
               }
             >
               Delete
-            </div> */}
+            </div>
                     </td>
-                  )}
+                  )} */}
                 </>
               );
             })

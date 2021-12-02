@@ -1,0 +1,45 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+.input {
+  &__label {
+    @include h3-labels-links-buttons;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__field {
+    height: 2.25rem;
+    border-radius: 1.25rem;
+    border: 1px solid gray;
+    margin-top: 0.25rem;
+    padding-left: 1rem;
+    @include tablet {
+      height: 2.375rem;
+    }
+    @include desktop {
+      height: 2.375rem;
+    }
+
+    &::placeholder {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      @include h3-labels-links-buttons;
+    }
+
+    &--error {
+      border-color: red;
+    }
+  }
+
+  &__error {
+    display: flex;
+    gap: 0.333rem;
+    @include p3-body-small;
+    text-align: left;
+    color: red;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    align-items: center;
+  }
+}

@@ -1,3 +1,5 @@
+import "./Input.scss";
+
 export default function Input({
   label,
   name,

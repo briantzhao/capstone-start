@@ -58,39 +58,43 @@ class App extends Component {
             handleLogout={this.handleLogout}
             user={this.state.user}
           />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => <HomePage {...props} user={this.state.user} />}
-            />
-            {/* <Route path="/collection/:userid" component={CollectionPage} /> */}
-            <PrivateRoute
-              path="/collection/:userid"
-              component={CollectionPage}
-            />
-            {/* <Route path="/decks" exact component={DeckPage} />
+          <main className="App__main">
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => (
+                  <HomePage {...props} user={this.state.user} />
+                )}
+              />
+              {/* <Route path="/collection/:userid" component={CollectionPage} /> */}
+              <PrivateRoute
+                path="/collection/:userid"
+                component={CollectionPage}
+              />
+              {/* <Route path="/decks" exact component={DeckPage} />
             <Route path="/decks/:id" component={DeckPage} />
             <Route path="/add/:userid" component={Form} />
             <Route path="/edit/:userid/:uid" component={Form} /> */}
-            <PrivateRoute path="/decks/:id" component={DeckPage} />
-            <PrivateRoute path="/add/:userid" component={Form} />
-            <PrivateRoute path="/edit/:userid/:uid" component={Form} />
-            <PrivateRoute path="/card/:uid" component={CardPage} />
-            <Route
-              path="/login"
-              render={(props) => (
-                <LoginPage {...props} handleLogin={this.handleLogin} />
-              )}
-            />
-            <Route
-              path="/signup"
-              render={(props) => (
-                <SignupPage {...props} handleLogin={this.handleLogin} />
-              )}
-            />
-            {/* <Route path="/card/:uid" component={CardPage} /> */}
-          </Switch>
+              <PrivateRoute path="/decks/:id" component={DeckPage} />
+              <PrivateRoute path="/add/:userid" component={Form} />
+              <PrivateRoute path="/edit/:userid/:uid" component={Form} />
+              <PrivateRoute path="/card/:uid" component={CardPage} />
+              <Route
+                path="/login"
+                render={(props) => (
+                  <LoginPage {...props} handleLogin={this.handleLogin} />
+                )}
+              />
+              <Route
+                path="/signup"
+                render={(props) => (
+                  <SignupPage {...props} handleLogin={this.handleLogin} />
+                )}
+              />
+              {/* <Route path="/card/:uid" component={CardPage} /> */}
+            </Switch>
+          </main>
         </Router>
       </div>
     );

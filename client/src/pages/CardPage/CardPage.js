@@ -2,6 +2,7 @@ import axios from "axios";
 import { Component } from "react";
 import ReactCardFlip from "react-card-flip";
 import { Link } from "react-router-dom";
+import "./CardPage.scss";
 
 const API_URL = "http://localhost:8080/";
 const nonUP = [

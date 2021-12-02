@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Input from "../Input/Input";
+import "./Form.scss";
 
 const API_URL = "http://localhost:8080/";
 const nonUP = [
@@ -44,9 +45,17 @@ export default class Form extends Component {
         )
         .then(({ data }) => {
           console.log(data);
-          const { id, name, setID, setName, quantity, foil } = data;
+          const { id, uid, name, setID, set, quantity, foil } = data;
           this.setState(
-            { cardID: id, cardName: name, setID, setName, quantity, foil },
+            {
+              cardID: id,
+              cardUID: uid,
+              cardName: name,
+              setID,
+              setName: set,
+              quantity,
+              foil,
+            },
             () => {
               this.handleSubmitCard();
             }
@@ -60,31 +69,6 @@ export default class Form extends Component {
   submitCard = (event) => {
     event.preventDefault();
     this.handleSubmitCard();
-    // let searchCard = this.state.cardName.replace(/\//g, "%2F").split(" ");
-    // searchCard = searchCard.map((word) => {
-    //   if (nonUP.find((el) => el === word)) {
-    //     return word;
-    //   }
-    //   const fixedName =
-    //     word.slice(0, 1).toUpperCase() +
-    //     word.slice(1, word.length).toLowerCase();
-    //   return fixedName;
-    // });
-    // searchCard = searchCard.join("_");
-    // axios
-    //   .get(`${API_URL}cards/${searchCard}`)
-    //   .then(({ data }) => {
-    //     const sets = data.map((version) => {
-    //       return `${version.setID},${version.set.toUpperCase()},${version.id},${
-    //         version.setName
-    //       }`;
-    //     });
-    //     this.setState({ setNameList: sets });
-    //   })
-    //   .catch((err) => {
-    //     alert("Please enter a valid card name");
-    //     console.log(err);
-    //   });
   };
 
   handleSubmitCard = () => {
@@ -128,15 +112,18 @@ export default class Form extends Component {
   };
 
   handleDropdown = (event) => {
+    console.log(event.target.value);
     const setID = event.target.value.split(",")[0];
     const setName = event.target.value.split(",")[1];
     const cardUID = event.target.value.split(",")[2];
     this.setState({ setID, setName, cardUID }, () => {
+      console.log(this.state);
       this.validate("setName", setName);
     });
   };
 
   validate = (name, value) => {
+    console.log("name: ", name, " value: ", value);
     if (value === null || value.length === 0) {
       this.setState({ [`${name}Valid`]: false });
       return;
@@ -146,6 +133,7 @@ export default class Form extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    console.log(this.state);
     const { cardID, cardUID, cardName, setID, setName, quantity, foil } =
       this.state;
     if (!(cardName && setName && foil)) {
@@ -225,10 +213,21 @@ export default class Form extends Component {
             name="set"
             onChange={this.handleDropdown}
           >
-            <option value="" selected disabled hidden>
-              Please Select
-            </option>
+            {this.state.setID === "" ? (
+              <option value="" selected disabled hidden>
+                Select a Set Name
+              </option>
+            ) : (
+              <></>
+            )}
             {this.state.setNameList.map((set) => {
+              if (set.split(",")[0] === this.state.setID) {
+                return (
+                  <option key={set.split(",")[0]} value={set} selected>
+                    {set.split(",")[3]}
+                  </option>
+                );
+              }
               return (
                 <option key={set.split(",")[0]} value={set}>
                   {set.split(",")[3]}
@@ -245,30 +244,32 @@ export default class Form extends Component {
           onChange={this.handleChange}
           valid={this.state.quantityValid}
         />
-        <Input
-          label="Foil"
-          name="foil"
-          type="radio"
-          value="foil"
-          onChange={this.handleChange}
-          valid={null}
-          checked={this.state.foil === "foil"}
-        />
-        <Input
-          label="Non-Foil"
-          name="foil"
-          type="radio"
-          value="nonfoil"
-          onChange={this.handleChange}
-          valid={this.state.foilValid}
-          checked={this.state.foil === "nonfoil"}
-        />
+        <section className="form__radio-inputs">
+          <Input
+            label="Foil"
+            name="foil"
+            type="radio"
+            value="foil"
+            onChange={this.handleChange}
+            valid={null}
+            checked={this.state.foil === "foil"}
+          />
+          <Input
+            label="Non-Foil"
+            name="foil"
+            type="radio"
+            value="nonfoil"
+            onChange={this.handleChange}
+            valid={this.state.foilValid}
+            checked={this.state.foil === "nonfoil"}
+          />
+        </section>
         <section className="form__buttons">
           <Link to={`/collection/${this.props.match.params.userid}`}>
             <button className="form__btn--cancel">Cancel</button>
           </Link>
           <button className="form__btn--submit" onClick={this.handleSubmit}>
-            + Add Card
+            Submit
           </button>
         </section>
       </form>

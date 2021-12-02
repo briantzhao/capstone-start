@@ -1,0 +1,120 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.form {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  &__card-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+  &__label {
+    @include h3-labels-links-buttons;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__field {
+    height: 2.25rem;
+    border-radius: 1.25rem;
+    border: 1px solid gray;
+    margin-top: 0.25rem;
+    padding-left: 1rem;
+    @include tablet {
+      height: 2.375rem;
+    }
+    @include desktop {
+      height: 2.375rem;
+    }
+
+    &::placeholder {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      @include h3-labels-links-buttons;
+    }
+
+    &--error {
+      border-color: red;
+    }
+  }
+
+  &__error {
+    display: flex;
+    gap: 0.333rem;
+    @include p3-body-small;
+    text-align: left;
+    color: red;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    align-items: center;
+  }
+
+  &__radio-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    & label {
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 0.25rem;
+    }
+  }
+  &__buttons {
+    width: 100%;
+    padding: 1rem;
+    background-color: $green;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    @include tablet {
+      justify-content: flex-end;
+      gap: 1rem;
+      padding: 1rem 2rem;
+    }
+    @include desktop {
+      justify-content: flex-end;
+      gap: 1rem;
+      padding: 1rem 2.5rem;
+    }
+  }
+
+  &__btn--cancel,
+  &__btn--submit,
+  &__submit--card {
+    text-decoration: none;
+    width: 8.75rem;
+    padding: 0.5rem 0.5rem;
+    border-radius: 1.25rem;
+    @include h3-labels-links-buttons;
+    border: 1px solid #bdc5d5;
+    background-color: white;
+    @include tablet {
+      width: 4.5rem;
+    }
+    @include desktop {
+      width: 4.5rem;
+    }
+  }
+
+  &__btn--submit,
+  &__submit--card {
+    color: $white;
+    background-color: $black;
+    @include tablet {
+      width: 8.625rem;
+    }
+    @include desktop {
+      width: 8.625rem;
+    }
+  }
+  &__submit--card {
+    height: 2.5rem;
+  }
+}
