@@ -14,9 +14,11 @@ export default function Header({ loggedIn, handleLogout, user }) {
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
-          <li>
-            <NavLink to={`/collection/${user.id}`}>Collection</NavLink>
-          </li>
+          {loggedIn && (
+            <li>
+              <NavLink to={`/collection/${user.id}`}>Collection</NavLink>
+            </li>
+          )}
           {/* <li>
             <NavLink to="/decks">Decks</NavLink>
           </li> */}

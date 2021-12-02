@@ -8,6 +8,7 @@ export default class DeckPage extends Component {
   state = {
     deck: [],
     commanders: [],
+    price: 0,
   };
 
   componentDidMount() {
@@ -25,6 +26,12 @@ export default class DeckPage extends Component {
         });
         if (deckCommanders) {
           this.setState({ commanders: deckCommanders });
+        }
+        return axios.get(`${API_URL}decks/price/${this.props.match.params.id}`);
+      })
+      .then(({ data }) => {
+        if (data) {
+          this.setState({ price: data });
         }
       })
       .catch((err) => {
@@ -45,6 +52,7 @@ export default class DeckPage extends Component {
             ? "None"
             : this.state.commanders.join("/")}
         </h2>
+        <h2 className="deck__price">Price: ${this.state.price}</h2>
         <CardTable editable={false} cardsList={this.state.deck.list} />
       </main>
     );

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function CardTable({ editable, cardsList, getItem }) {
+export default function CardTable({ editable, cardsList, getItem, userid }) {
   <table className="card-table">
     <tr className="card-table__headers">
       <th className="card-table__label">Card Name</th>
@@ -9,19 +9,21 @@ export default function CardTable({ editable, cardsList, getItem }) {
       <th className="card-table__label">Price</th>
       {editable && <th className="card-table__label">Actions</th>}
     </tr>
-    {cardsList.map(({ id, uid, name, set, quantity, price }) => {
+    {cardsList.map(({ uid, name, set, quantity, price }) => {
       <div key={uid}>
         <tr className="card-table__single">
-          <td className="card-table__item">{name}</td>
+          <td className="card-table__item">
+            <Link to={`/card/${uid}`}>{name}</Link>
+          </td>
           <td className="card-table__item">{set.toUpperCase()}</td>
           <td className="card-table__item">{quantity}</td>
           <td className="card-table__item">{price}</td>
           {editable && (
             <td className="card-table__item">
-              <Link to={`/edit/${userid}/${id}`}>
+              <Link to={`/edit/${userid}/${uid}`}>
                 <div className="card-table__item__btn--edit">Edit</div>
               </Link>
-              <div
+              {/* <div
                 className="card-table__item__btn--delete"
                 onClick={
                   getItem
@@ -32,18 +34,18 @@ export default function CardTable({ editable, cardsList, getItem }) {
                 }
               >
                 Delete
-              </div>
+              </div> */}
             </td>
           )}
         </tr>
         {editable && (
           <td className="card-table__item--mobile">
-            <Link to="/edit">
+            <Link to={`/edit/${userid}/${uid}`}>
               <div className="card-table__item__btn--edit card-table__item__btn--mobile">
                 Edit
               </div>
             </Link>
-            <div
+            {/* <div
               className="card-table__item__btn--delete card-table__item__btn--mobile"
               onClick={
                 getItem
@@ -54,7 +56,7 @@ export default function CardTable({ editable, cardsList, getItem }) {
               }
             >
               Delete
-            </div>
+            </div> */}
           </td>
         )}
       </div>;

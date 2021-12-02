@@ -20,9 +20,11 @@ export default class Form extends Component {
     setNameList: [],
   };
   componentDidMount() {
-    if (this.props.match.params.id) {
+    if (this.props.match.params.uid) {
       axios
-        .get(`${API_URL}collection/${this.props.match.params.id}`)
+        .get(
+          `${API_URL}collection/${this.props.match.params.userid}/${this.props.match.params.uid}`
+        )
         .then(({ data }) => {
           const { cardName, setID, setName, quantity, foil } = data;
           this.setState({ cardName, setID, setName, quantity, foil });
@@ -32,7 +34,27 @@ export default class Form extends Component {
         });
     }
   }
-  submitCard = () => {};
+  submitCard = () => {
+    let searchCard = this.state.cardName.replace(/\//g, "%2F").split(" ");
+    searchCard = searchCard.map((word) => {
+      return (
+        word.slice(0, 1).toUpperCase + word.slice(1, word.length).toLowerCase()
+      );
+    });
+    searchCard = searchCard.join("_");
+    axios
+      .get(`${API_URL}cards/${searchCard}`)
+      .then(({ data }) => {
+        const sets = data.map((version) => {
+          return `${version.setID},${version.set.toUpperCase()},${version.id}`;
+        });
+        this.setState({ setNameList: sets });
+      })
+      .catch((err) => {
+        alert("Please enter a valid card name");
+        console.log(err);
+      });
+  };
 
   handleChange = (event) => {
     if (event.target.name === "quantity") {
@@ -48,7 +70,8 @@ export default class Form extends Component {
   handleDropdown = (event) => {
     const setID = event.target.value.split(",")[0];
     const setName = event.target.value.split(",")[1];
-    this.setState({ setID, setName }, () => {
+    const cardID = event.target.value.split(",")[2];
+    this.setState({ setID, setName, cardID }, () => {
       this.validate("setName", setName);
     });
   };
@@ -82,9 +105,12 @@ export default class Form extends Component {
       this.setState({ quantityValid: false });
       return;
     }
-    if (this.props.match.params.id) {
+    if (this.props.match.params.uid) {
       axios
-        .patch(`${API_URL}collections/${this.props.match.params.id}`)
+        .patch(
+          `${API_URL}collections/${this.props.match.params.userid}/${this.props.match.params.uid}`,
+          { quantity }
+        )
         .then(() => {
           alert("Card updated!");
         })
@@ -93,7 +119,7 @@ export default class Form extends Component {
         });
     } else {
       axios
-        .post(`${API_URL}collections/`, {
+        .post(`${API_URL}collections/${this.props.match.params.userid}`, {
           uid: cardID,
           name: cardName,
           setID,
@@ -108,7 +134,7 @@ export default class Form extends Component {
           console.log(err);
         });
     }
-    this.props.history.push("/collection");
+    this.props.history.push(`/collection/${this.props.match.params.userid}`);
   };
   render() {
     return (
@@ -175,7 +201,7 @@ export default class Form extends Component {
           valid={this.state.foilValid}
         />
         <section className="form__buttons">
-          <Link to="/collection">
+          <Link to={`/collection/${this.props.match.params.userid}`}>
             <button className="form__btn--cancel">Cancel</button>
           </Link>
           <button className="form__btn--submit" onClick={this.handleSubmit}>

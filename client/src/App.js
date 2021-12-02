@@ -12,6 +12,7 @@ import DeckPage from "./pages/DeckPage/DeckPage";
 import Form from "./components/Form/Form";
 import { Component } from "react";
 import SignupPage from "./pages/SignupPage/SignupPage";
+import CardPage from "./pages/CardPage/CardPage";
 
 class App extends Component {
   state = {
@@ -49,8 +50,8 @@ class App extends Component {
             <Route path="/collection/:userid" component={CollectionPage} />
             <Route path="/decks" exact component={DeckPage} />
             <Route path="/decks/:id" component={DeckPage} />
-            <Route path="/add" component={Form} />
-            <Route path="/edit/:userid/:id" component={Form} />
+            <Route path="/add/:userid" component={Form} />
+            <Route path="/edit/:userid/:uid" component={Form} />
             <Route path="/login" component={LoginPage} />
             <Route
               path="/signup"
@@ -64,6 +65,7 @@ class App extends Component {
                 <LoginPage {...props} handleLogin={this.handleLogin} />;
               }}
             />
+            <Route path="/card/:uid" component={CardPage} />
           </Switch>
         </Router>
       </div>

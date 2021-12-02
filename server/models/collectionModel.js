@@ -50,15 +50,19 @@ const add = (userID, card) => {
   return null;
 };
 
-// const getById = (cardID) => {
-//   const cardsArray = getCards();
-//   const card = cardsArray.find((card) => {
-//     if (card !== null) {
-//       return card.id === cardID;
-//     }
-//   });
-//   return card;
-// };
+const getById = (userID, cardID) => {
+  const collArray = getAll();
+  const userData = getUser(userID, collArray);
+  if (!userData.collection) {
+    return null;
+  }
+  const card = userData.collection.find((card) => {
+    if (card !== null) {
+      return card.id === cardID;
+    }
+  });
+  return card;
+};
 
 // const remove = (cardID) => {
 //     const collArray = getAll();
@@ -91,4 +95,4 @@ const updateQuantity = (userID, cardID, newQuantity) => {
   return null;
 };
 
-module.exports = { getUserColl, add, updateQuantity };
+module.exports = { getUserColl, add, updateQuantity, getById };

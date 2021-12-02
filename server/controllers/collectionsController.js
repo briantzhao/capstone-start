@@ -13,14 +13,14 @@ exports.addCard = (req, res) => {
   res.json(updatedCards);
 };
 
-// //gets information for single card
-// exports.listSingleCard = (req, res) => {
-//   const card = collection.getById(req.params.id);
-//   if (!card) {
-//     res.status(400).json({ Message: "Please provide a valid card." });
-//   }
-//   res.json(card);
-// };
+//gets information for single card
+exports.listSingleCard = (req, res) => {
+  const card = collection.getById(req.params.userID, req.params.id);
+  if (!card) {
+    res.status(400).json({ Message: "Please provide a valid card." });
+  }
+  res.json(card);
+};
 
 //deletes data for a card in a collection
 // exports.deleteCard = (req, res) => {
