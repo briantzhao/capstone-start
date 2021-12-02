@@ -4,10 +4,27 @@ import axios from "axios";
 import Input from "../Input/Input";
 
 const API_URL = "http://localhost:8080/";
+const nonUP = [
+  "a",
+  "an",
+  "the",
+  "for",
+  "and",
+  "nor",
+  "or",
+  "but",
+  "so",
+  "at",
+  "by",
+  "of",
+  "on",
+  "to",
+];
 
 export default class Form extends Component {
   state = {
     cardID: "",
+    cardUID: "",
     cardName: "",
     cardNameValid: true,
     setID: "",
@@ -27,8 +44,13 @@ export default class Form extends Component {
         )
         .then(({ data }) => {
           console.log(data);
-          const { name, setID, setName, quantity, foil } = data;
-          this.setState({ cardName: name, setID, setName, quantity, foil });
+          const { id, name, setID, setName, quantity, foil } = data;
+          this.setState(
+            { cardID: id, cardName: name, setID, setName, quantity, foil },
+            () => {
+              this.handleSubmitCard();
+            }
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -37,31 +59,56 @@ export default class Form extends Component {
   }
   submitCard = (event) => {
     event.preventDefault();
-    console.log("submit card", this.state.cardName);
+    this.handleSubmitCard();
+    // let searchCard = this.state.cardName.replace(/\//g, "%2F").split(" ");
+    // searchCard = searchCard.map((word) => {
+    //   if (nonUP.find((el) => el === word)) {
+    //     return word;
+    //   }
+    //   const fixedName =
+    //     word.slice(0, 1).toUpperCase() +
+    //     word.slice(1, word.length).toLowerCase();
+    //   return fixedName;
+    // });
+    // searchCard = searchCard.join("_");
+    // axios
+    //   .get(`${API_URL}cards/${searchCard}`)
+    //   .then(({ data }) => {
+    //     const sets = data.map((version) => {
+    //       return `${version.setID},${version.set.toUpperCase()},${version.id},${
+    //         version.setName
+    //       }`;
+    //     });
+    //     this.setState({ setNameList: sets });
+    //   })
+    //   .catch((err) => {
+    //     alert("Please enter a valid card name");
+    //     console.log(err);
+    //   });
+  };
+
+  handleSubmitCard = () => {
     let searchCard = this.state.cardName.replace(/\//g, "%2F").split(" ");
-    console.log("modified card", searchCard);
     searchCard = searchCard.map((word) => {
+      if (nonUP.find((el) => el === word)) {
+        return word;
+      }
       const fixedName =
         word.slice(0, 1).toUpperCase() +
         word.slice(1, word.length).toLowerCase();
       return fixedName;
     });
-    console.log("final modification", searchCard);
     searchCard = searchCard.join("_");
-    console.log("begin axios call", searchCard);
     axios
       .get(`${API_URL}cards/${searchCard}`)
       .then(({ data }) => {
-        console.log("call received");
-        console.log("response", data);
+        console.log(data);
         const sets = data.map((version) => {
           return `${version.setID},${version.set.toUpperCase()},${version.id},${
             version.setName
           }`;
         });
-        this.setState({ setNameList: sets }, () => {
-          console.log("sets: ", this.state.setNameList);
-        });
+        this.setState({ setNameList: sets });
       })
       .catch((err) => {
         alert("Please enter a valid card name");
@@ -83,8 +130,8 @@ export default class Form extends Component {
   handleDropdown = (event) => {
     const setID = event.target.value.split(",")[0];
     const setName = event.target.value.split(",")[1];
-    const cardID = event.target.value.split(",")[2];
-    this.setState({ setID, setName, cardID }, () => {
+    const cardUID = event.target.value.split(",")[2];
+    this.setState({ setID, setName, cardUID }, () => {
       this.validate("setName", setName);
     });
   };
@@ -99,8 +146,9 @@ export default class Form extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { cardID, cardName, setID, setName, quantity, foil } = this.state;
-    if (!(cardName && setName && quantity && foil)) {
+    const { cardID, cardUID, cardName, setID, setName, quantity, foil } =
+      this.state;
+    if (!(cardName && setName && foil)) {
       alert("Please fill out all fields in the form");
       this.validate("cardName", cardName);
       this.validate("setName", setName);
@@ -121,8 +169,8 @@ export default class Form extends Component {
     if (this.props.match.params.uid) {
       axios
         .patch(
-          `${API_URL}collections/${this.props.match.params.userid}/${this.props.match.params.uid}`,
-          { quantity }
+          `${API_URL}collections/${this.props.match.params.userid}/${cardID}`,
+          { quantity, setID, set: setName, foil, uid: cardUID }
         )
         .then(() => {
           alert("Card updated!");
@@ -133,7 +181,7 @@ export default class Form extends Component {
     } else {
       axios
         .post(`${API_URL}collections/${this.props.match.params.userid}`, {
-          uid: cardID,
+          uid: cardUID,
           name: cardName,
           setID,
           set: setName,
@@ -204,6 +252,7 @@ export default class Form extends Component {
           value="foil"
           onChange={this.handleChange}
           valid={null}
+          checked={this.state.foil === "foil"}
         />
         <Input
           label="Non-Foil"
@@ -212,6 +261,7 @@ export default class Form extends Component {
           value="nonfoil"
           onChange={this.handleChange}
           valid={this.state.foilValid}
+          checked={this.state.foil === "nonfoil"}
         />
         <section className="form__buttons">
           <Link to={`/collection/${this.props.match.params.userid}`}>

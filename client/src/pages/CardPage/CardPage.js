@@ -4,6 +4,22 @@ import ReactCardFlip from "react-card-flip";
 import { Link } from "react-router-dom";
 
 const API_URL = "http://localhost:8080/";
+const nonUP = [
+  "a",
+  "an",
+  "the",
+  "for",
+  "and",
+  "nor",
+  "or",
+  "but",
+  "so",
+  "at",
+  "by",
+  "of",
+  "on",
+  "to",
+];
 
 export default class CardPage extends Component {
   state = {
@@ -20,6 +36,9 @@ export default class CardPage extends Component {
         this.setState({ card: cardData });
         let cardName = cardData.name.replace(/\//g, "%2F").split(" ");
         cardName = cardName.map((word) => {
+          if (nonUP.find((el) => el === word)) {
+            return word;
+          }
           return (
             word.slice(0, 1).toUpperCase() +
             word.slice(1, word.length).toLowerCase()
@@ -46,6 +65,7 @@ export default class CardPage extends Component {
   };
 
   render() {
+    console.log(this.state.decks);
     if (!(this.state.card && this.state.decks)) {
       return <h1 className="loading">Loading...</h1>;
     }
@@ -59,23 +79,28 @@ export default class CardPage extends Component {
             alt={this.state.card.name}
           />
         ) : (
-          <ReactCardFlip
-            isFlipped={this.state.isFlipped}
-            flipDirection="horizontal"
-          >
-            <img
-              className="card-page__img"
-              src={this.state.card.cardFaces[0].imageURIs.normal}
-              alt={this.state.card.name}
-              onClick={this.handleClick}
-            />
-            <img
-              className="card-page__img"
-              src={this.state.card.cardFaces[1].imageURIs.normal}
-              alt={this.state.card.name}
-              onClick={this.handleClick}
-            />
-          </ReactCardFlip>
+          <section className="card-page__flip">
+            <ReactCardFlip
+              isFlipped={this.state.isFlipped}
+              flipDirection="horizontal"
+            >
+              <img
+                className="card-page__img"
+                src={this.state.card.cardFaces[0].imageURIs.normal}
+                alt={this.state.card.name}
+                onClick={this.handleClick}
+              />
+              <img
+                className="card-page__img"
+                src={this.state.card.cardFaces[1].imageURIs.normal}
+                alt={this.state.card.name}
+                onClick={this.handleClick}
+              />
+            </ReactCardFlip>
+            <h3 className="card-page__flip-prompt">
+              Click Card to See Back Side
+            </h3>
+          </section>
         )}
         <section className="card-page__prices">
           <h2 className="card-page__subtitle">Prices</h2>
@@ -97,14 +122,18 @@ export default class CardPage extends Component {
             Decks Using {this.state.card.name}
           </h2>
           <ul className="card-page__decklists">
-            {this.state.decks.map((deck) => {
-              return (
-                <li className="card-page__deck">
-                  {" "}
-                  <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
-                </li>
-              );
-            })}
+            {this.state.decks === "None" ? (
+              <h3 className="card-page__no-decks">None</h3>
+            ) : (
+              this.state.decks.map((deck) => {
+                return (
+                  <li className="card-page__deck">
+                    {" "}
+                    <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
+                  </li>
+                );
+              })
+            )}
           </ul>
         </section>
       </main>

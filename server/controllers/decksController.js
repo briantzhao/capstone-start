@@ -4,6 +4,7 @@ const decks = require("../models/deckModel");
 exports.filter = (req, res) => {
   let { cardName } = req.params;
   cardName = cardName.replace(/_/g, " ");
+  cardName = cardName.replace(/%2F/gi, "/");
   const decksList = decks.findDecks(cardName);
   if (!decksList) {
     res.status(400).json({ Message: "No decks found" });

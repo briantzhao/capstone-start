@@ -24,6 +24,14 @@ const getCardsByName = (name) => {
       return card.name === name;
     }
   });
+  let foundCards = [];
+  cards.forEach((card) => {
+    console.log("set: ", card.set);
+    if (!foundCards.find((el) => el.setID === card.setID)) {
+      console.log("success: ", card.set);
+      foundCards.push(card);
+    }
+  });
   // let filteredCards = {};
 
   // cards.forEach((card) => {
@@ -32,7 +40,7 @@ const getCardsByName = (name) => {
   //   }
   // });
   // return filteredCards;
-  return cards;
+  return foundCards;
 };
 
 module.exports = { getOneById, getCardsByName };

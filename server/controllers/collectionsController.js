@@ -35,11 +35,8 @@ exports.listSingleCard = (req, res) => {
 //updates quantity for a given card
 exports.updateCardQuantity = (req, res) => {
   const { userID, id } = req.params;
-  const updatedCollection = collection.updateQuantity(
-    userID,
-    id,
-    req.body.quantity
-  );
+  console.log("cardcontroller", req.body);
+  const updatedCollection = collection.updateQuantity(userID, id, req.body);
   if (!updatedCollection) {
     res.status(400).json({ Message: "Please provide a valid card." });
   }

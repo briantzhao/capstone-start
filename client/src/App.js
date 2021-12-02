@@ -10,6 +10,7 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import CardPage from "./pages/CardPage/CardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import axios from "axios";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
 const API_URL = "http://localhost:8080/";
 
@@ -40,6 +41,7 @@ class App extends Component {
   handleLogout = () => {
     sessionStorage.removeItem("token");
     this.setState({ loggedIn: false, user: null });
+    alert("Thank you for using Sylvan Library. See you next time!");
   };
 
   handleLogin = (data) => {
@@ -62,11 +64,19 @@ class App extends Component {
               path="/"
               render={(props) => <HomePage {...props} user={this.state.user} />}
             />
-            <Route path="/collection/:userid" component={CollectionPage} />
-            <Route path="/decks" exact component={DeckPage} />
+            {/* <Route path="/collection/:userid" component={CollectionPage} /> */}
+            <PrivateRoute
+              path="/collection/:userid"
+              component={CollectionPage}
+            />
+            {/* <Route path="/decks" exact component={DeckPage} />
             <Route path="/decks/:id" component={DeckPage} />
             <Route path="/add/:userid" component={Form} />
-            <Route path="/edit/:userid/:uid" component={Form} />
+            <Route path="/edit/:userid/:uid" component={Form} /> */}
+            <PrivateRoute path="/decks/:id" component={DeckPage} />
+            <PrivateRoute path="/add/:userid" component={Form} />
+            <PrivateRoute path="/edit/:userid/:uid" component={Form} />
+            <PrivateRoute path="/card/:uid" component={CardPage} />
             <Route
               path="/login"
               render={(props) => (
@@ -79,13 +89,7 @@ class App extends Component {
                 <SignupPage {...props} handleLogin={this.handleLogin} />
               )}
             />
-            <Route
-              path="/login"
-              render={(props) => (
-                <LoginPage {...props} handleLogin={this.handleLogin} />
-              )}
-            />
-            <Route path="/card/:uid" component={CardPage} />
+            {/* <Route path="/card/:uid" component={CardPage} /> */}
           </Switch>
         </Router>
       </div>

@@ -17,17 +17,28 @@ export default class CollectionPage extends Component {
   componentDidMount() {
     const currUser = this.props.match.params.userid;
     this.setState({ userid: currUser }, () => {
-      axios
-        .get(`${API_URL}collections/${this.props.match.params.userid}`)
-        .then(({ data }) => {
-          this.setState({ collection: data });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.updateColl(currUser);
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const prevColl = prevState.collection;
+    const currColl = this.state.collection;
+    if (prevColl !== currColl) {
+      this.updateColl(this.state.userid);
+    }
+  }
+
+  updateColl = (userid) => {
+    axios
+      .get(`${API_URL}collections/${userid}`)
+      .then(({ data }) => {
+        this.setState({ collection: data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   // hideModal = () => {
   //   return this.setState({ modalOpen: false });
   // };
