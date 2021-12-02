@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import ReactCardFlip from "react-card-flip";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 const API_URL = "http://localhost:8080/";
 
@@ -14,18 +14,19 @@ export default class CardPage extends Component {
 
   componentDidMount() {
     axios
-      .get(`${API_URL}cards/${this.props.match.params.uid}`)
+      .get(`${API_URL}cards/id/${this.props.match.params.uid}`)
       .then(({ data }) => {
-        this.setState({ card: data });
-        let cardName = data.name.replace(/\//g, "%2F").split(" ");
+        const cardData = data.card;
+        this.setState({ card: cardData });
+        let cardName = cardData.name.replace(/\//g, "%2F").split(" ");
         cardName = cardName.map((word) => {
           return (
-            word.slice(0, 1).toUpperCase +
+            word.slice(0, 1).toUpperCase() +
             word.slice(1, word.length).toLowerCase()
           );
         });
         cardName = cardName.join("_");
-        return axios.get(`${API_URL}/card/${cardName}`);
+        return axios.get(`${API_URL}decks/card/${cardName}`);
       })
       .then(({ data }) => {
         if (data.length === 0) {
@@ -77,18 +78,32 @@ export default class CardPage extends Component {
           </ReactCardFlip>
         )}
         <section className="card-page__prices">
-        <h2 className="card-page__subtitle">Prices</h2>
-        <p className="card-page__price">Non-Foil: ${this.state.card.prices.usd?this.card.prices.usd:"Unavailable"}</p>
-        <p className="card-page__price">Foil: ${this.state.card.prices.usdFoil?this.card.prices.usdFoil:"Unavailable"}</p>
+          <h2 className="card-page__subtitle">Prices</h2>
+          <p className="card-page__price">
+            Non-Foil: $
+            {this.state.card.prices.usd
+              ? this.state.card.prices.usd
+              : "Unavailable"}
+          </p>
+          <p className="card-page__price">
+            Foil: $
+            {this.state.card.prices.usdFoil
+              ? this.state.card.prices.usdFoil
+              : "Unavailable"}
+          </p>
         </section>
         <section className="card-page__decks">
-          <h2 className="card-page__subtitle">Decks Using {this.state.card.name}</h2>
+          <h2 className="card-page__subtitle">
+            Decks Using {this.state.card.name}
+          </h2>
           <ul className="card-page__decklists">
             {this.state.decks.map((deck) => {
-              return(
-             
-                <li className="card-page__deck">   <Link to={`/decks/${deck.id}`}>{deck.name}</Link></li>
-              )
+              return (
+                <li className="card-page__deck">
+                  {" "}
+                  <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
+                </li>
+              );
             })}
           </ul>
         </section>

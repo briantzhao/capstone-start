@@ -1,4 +1,4 @@
-export default function ({ label, name, type, value, onChange, valid }) {
+export default function Input({ label, name, type, value, onChange, valid }) {
   return (
     <label className="input__label">
       {label}

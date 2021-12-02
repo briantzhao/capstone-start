@@ -8,7 +8,7 @@ const API_URL = "http://localhost:8080/";
 
 export default class CollectionPage extends Component {
   state = {
-    collection: [],
+    collection: null,
     // modalOpen: false,
     // currentCard: "",
     userid: null,
@@ -49,7 +49,7 @@ export default class CollectionPage extends Component {
   //   this.setState({ modalOpen: true, currentCard: foundCard });
   // };
   render() {
-    if (this.state.collection.length() === 0) {
+    if (this.state.collection === null) {
       return <h1 className="loading">Loading...</h1>;
     }
     return (
@@ -61,14 +61,14 @@ export default class CollectionPage extends Component {
           hideModal={this.hideModal}
         /> */}
         <h1 className="collection__title">Your Collection</h1>
-        <Link to={`/add/${this.state.user}`}>
+        <Link to={`/add/${this.state.userid}`}>
           <button className="collection__btn--add">Add a Card</button>
         </Link>
         <CardTable
           editable={true}
-          collection={this.state.collection}
+          cardsList={this.state.collection}
           getItem={this.getItem}
-          user={this.state.userid}
+          userid={this.state.userid}
         />
       </main>
     );

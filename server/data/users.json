@@ -12,5 +12,12 @@
     "firstName": "Brian",
     "lastName": "Zhao",
     "id": 2
+  },
+  {
+    "email": "brian@random.org",
+    "password": "$2a$08$Ho2Ow/IuiARNPBC5s4BUlux1dgCNnDtJQbGVIFJpjFd1CtzB4u6Pa",
+    "firstName": "Brian",
+    "lastName": "Zhao",
+    "id": 3
   }
 ]

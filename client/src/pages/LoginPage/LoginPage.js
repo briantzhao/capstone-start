@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Input from "../../components/Input/Input";
 
-const API_URL = "http://localhost:8080";
+const API_URL = "http://localhost:8080/";
 
 export default class LoginPage extends Component {
   state = {

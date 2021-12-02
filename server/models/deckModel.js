@@ -49,7 +49,11 @@ const findPrice = (deckID) => {
   while (prices.length > 0) {
     total = total + Number(prices.pop());
   }
-  return total;
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+  return formatter.format(total);
 };
 
 module.exports = { findDecks, findDeckById, findPrice };

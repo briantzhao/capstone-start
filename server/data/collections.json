@@ -1,17 +1,1 @@
-[
-  {
-    "id": "1",
-    "name": "Jon Watts",
-    "collection": [
-      {
-        "uid": "07883c5d-1732-4322-8c67-b6dcc74bb629",
-        "name": "Lightning Bolt",
-        "setID": "0dba38a9-6b9d-4768-9831-4e03e8970a0b",
-        "setName": "Magic 2010",
-        "quantity": 4,
-        "foil": false
-      }
-    ]
-  },
-  { "id": 2, "name": "Brian Zhao", "collection": [] }
-]
+[{"id":1,"name":"Jon Watts","collection":[{"uid":"07883c5d-1732-4322-8c67-b6dcc74bb629","name":"Lightning Bolt","setID":"0dba38a9-6b9d-4768-9831-4e03e8970a0b","set":"M10","quantity":4,"foil":false}]},{"id":2,"name":"Brian Zhao","collection":[]},{"id":3,"name":"Brian Zhao","collection":[{"uid":"435589bb-27c6-4a6d-9d63-394d5092b9d8","name":"lightning bolt","setID":"0dba38a9-6b9d-4768-9831-4e03e8970a0b","set":"M10","quantity":4,"foil":"nonfoil","id":1},{"uid":"c3669391-8f64-4904-b432-0f0582f30449","name":"opt","setID":"a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782","set":"ELD","quantity":3,"foil":"nonfoil","id":2},{"uid":"685a74bb-f158-4d0e-b840-222ecbf107d4","name":"doom blade","setID":"485d2468-18c8-42a4-9482-ca1c51e0470e","set":"M11","quantity":2,"foil":"foil","id":3}]}]

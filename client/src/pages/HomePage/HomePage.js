@@ -1,68 +1,72 @@
-import { Component } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+export default function HomePage({ user }) {
+  // state = {
+  //   user: null,
+  //   failedAuth: false,
+  // };
 
-const API_URL = "http://localhost:8080/";
-export default class HomePage extends Component {
-  state = {
-    user: null,
-    failedAuth: false,
-  };
+  // componentDidMount() {
+  //   const token = sessionStorage.getItem("token");
+  //   if (!token) {
+  //     return this.setState({ failedAuth: true });
+  //   }
 
-  componentDidMount() {
-    const token = sessionStorage.getItem("token");
+  //   axios
+  //     .get(`${API_URL}users/current`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then(({ data }) => {
+  //       this.setState({ user: data });
+  //     })
+  //     .catch((err) => {
+  //       this.setState({ failedAuth: true });
+  //     });
+  // }
 
-    if (!token) {
-      return this.setState({ failedAuth: true });
-    }
-
-    axios
-      .get(`${API_URL}users/current`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then(({ data }) => {
-        this.setState({ user: data });
-      })
-      .catch((err) => {
-        this.setState({ failedAuth: true });
-      });
-  }
-
-  render() {
-    return (
-      <main className="home__main">
-        <h1 className="home__title">Sylvan Library</h1>
-        {!this.state.failedAuth ? (
-          <h2 className="home__welcome">
-            Welcome, {this.state.user.firstName} {this.state.user.lastName}
-          </h2>
-        ) : (
+  return (
+    <main className="home__main">
+      <h1 className="home__title">Sylvan Library</h1>
+      {user !== null ? (
+        <h2 className="home__welcome">
+          Welcome, {user.firstName} {user.lastName}
+        </h2>
+      ) : (
+        <Link to="/login">
           <button className="home__sign-up">Log In</button>
-        )}
-        {/* Carousel */}
-        <article className="home__links">
-          <h2 className="home__links__title">Useful Links</h2>
-          <ul className="home__links__list">
-            <li className="home__links__list-item">
-              <a href="https://www.tcgplayer.com" target="_blank">
-                Tcgplayer
-              </a>
-            </li>
-            <li className="home__links__list-item">
-              <a href="https://www.edhrec.com" target="_blank">
-                Edhrec
-              </a>
-            </li>
-            <li className="home__links__list-item">
-              <a href="https://www.reddit.com/magicTCG" target="_blank">
-                Reddit
-              </a>
-            </li>
-          </ul>
-        </article>
-      </main>
-    );
-  }
+        </Link>
+      )}
+      {/* Carousel */}
+      <article className="home__links">
+        <h2 className="home__links__title">Useful Links</h2>
+        <ul className="home__links__list">
+          <li className="home__links__list-item">
+            <a
+              href="https://www.tcgplayer.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Tcgplayer
+            </a>
+          </li>
+          <li className="home__links__list-item">
+            <a href="https://www.edhrec.com" target="_blank" rel="noreferrer">
+              Edhrec
+            </a>
+          </li>
+          <li className="home__links__list-item">
+            <a
+              href="https://www.reddit.com/magicTCG"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Reddit
+            </a>
+          </li>
+        </ul>
+      </article>
+    </main>
+  );
+
   // render() {
   //   return (
   //     <main className="page-main">

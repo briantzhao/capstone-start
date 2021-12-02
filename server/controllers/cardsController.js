@@ -13,13 +13,23 @@ exports.filter = (req, res) => {
   res.status(200).json(cards);
 };
 
+//finds single card by ID
+exports.searchById = (req, res) => {
+  const { cardID } = req.params;
+  const singleCard = card.getOneById(cardID);
+  if (!singleCard) {
+    return res.status(400).json({ Message: "Card not found." });
+  }
+  res.status(200).json({ card: singleCard });
+};
+
 //finds price of single card
 exports.price = (req, res) => {
   const { cardID } = req.params;
   const { foil } = Boolean(req.params);
   const singleCard = card.getOneById(cardID);
   if (!singleCard) {
-    res.status(400).json({ Message: "Price not found." });
+    return res.status(400).json({ Message: "Price not found." });
   }
   if (foil) {
     res.status(200).json({ price: singleCard.prices.usdFoil });

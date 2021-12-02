@@ -17,14 +17,14 @@ const getAll = () => {
 // };
 
 const getUser = (id, arr) => {
-  const userEl = arr.find((user) => user.id === id);
+  const userEl = arr.find((user) => {
+    return user.id === Number(id);
+  });
   return userEl;
 };
 
 const getIndex = (id, arr) => {
-  console.log(id);
-  console.log(arr);
-  const singleEl = arr.findIndex((el) => el.id === id);
+  const singleEl = arr.findIndex((el) => el.id === Number(id));
   return singleEl;
 };
 
@@ -58,7 +58,7 @@ const getById = (userID, cardID) => {
   }
   const card = userData.collection.find((card) => {
     if (card !== null) {
-      return card.id === cardID;
+      return card.uid === cardID;
     }
   });
   return card;

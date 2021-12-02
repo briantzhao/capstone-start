@@ -15,6 +15,7 @@ exports.addCard = (req, res) => {
 
 //gets information for single card
 exports.listSingleCard = (req, res) => {
+  console.log("hello");
   const card = collection.getById(req.params.userID, req.params.id);
   if (!card) {
     res.status(400).json({ Message: "Please provide a valid card." });

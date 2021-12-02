@@ -24,6 +24,14 @@ const getCardsByName = (name) => {
       return card.name === name;
     }
   });
+  // let filteredCards = {};
+
+  // cards.forEach((card) => {
+  //   if (!filteredCards[card.setID]) {
+  //     filteredCards[card.setID] = card;
+  //   }
+  // });
+  // return filteredCards;
   return cards;
 };
 

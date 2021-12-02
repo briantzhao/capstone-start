@@ -16,15 +16,19 @@ export default class DeckPage extends Component {
       .get(`${API_URL}decks/${this.props.match.params.id}`)
       .then(({ data }) => {
         this.setState({ deck: data });
-        const deckCommanders = data.filter((card) => {
+        let deckCommanders = data.list.filter((card) => {
           const cmd = card.categories.find(
             (category) => category === "Commander"
           );
+          // if (cmd) {
+          //   return cmd;
+          // }
           if (cmd) {
-            return cmd;
+            return card;
           }
         });
         if (deckCommanders) {
+          deckCommanders = deckCommanders.map((card) => card.name);
           this.setState({ commanders: deckCommanders });
         }
         return axios.get(`${API_URL}decks/price/${this.props.match.params.id}`);
@@ -40,7 +44,7 @@ export default class DeckPage extends Component {
   }
 
   render() {
-    if (this.state.deck.length() === 0) {
+    if (this.state.deck.length === 0) {
       return <h1 classname="loading">Loading...</h1>;
     }
     return (
@@ -52,7 +56,7 @@ export default class DeckPage extends Component {
             ? "None"
             : this.state.commanders.join("/")}
         </h2>
-        <h2 className="deck__price">Price: ${this.state.price}</h2>
+        <h2 className="deck__price">Price: {this.state.price}</h2>
         <CardTable editable={false} cardsList={this.state.deck.list} />
       </main>
     );
