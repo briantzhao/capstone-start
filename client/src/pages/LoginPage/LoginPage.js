@@ -7,18 +7,22 @@ import "./LoginPage.scss";
 const API_URL = "http://localhost:8080/";
 
 export default class LoginPage extends Component {
+  //keeps track of input validity for all fields
   state = {
     email: "",
     emailValid: true,
     password: "",
     passwordValid: true,
   };
+
+  //updates state based on user input
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value }, () => {
       this.validate(event.target.name, event.target.value);
     });
   };
 
+  //checks if user input is valid
   validate = (name, value) => {
     if (!value) {
       this.setState({ [`${name}Valid`]: false });
@@ -27,9 +31,12 @@ export default class LoginPage extends Component {
     this.setState({ [`${name}Valid`]: true });
   };
 
+  //onClick for login button
   handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
+    //checks that email and password are filled in
+    //runs validate to render error messages
     if (!(email && password)) {
       alert("Please fill out all fields in the form");
       this.validate("email", email);

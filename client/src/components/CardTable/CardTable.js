@@ -13,10 +13,13 @@ export default function CardTable({ editable, cardsList, userid }) {
             <th className="card-table__label">Set</th>
             <th className="card-table__label">Quantity</th>
             <th className="card-table__label">Price</th>
+            {/* adds extra column if editable is passed (only true when rendering collection table) */}
             {editable && <th className="card-table__label">Actions</th>}
           </tr>
         </thead>
         <tbody className="card-table__body">
+          {/* checks if cardsList passed is empty, renders empty fragment if so
+          prevents error when trying map empty list */}
           {cardsList.length !== 0 ? (
             cardsList.map(({ uid, name, set, quantity, price }) => {
               return (
@@ -37,6 +40,7 @@ export default function CardTable({ editable, cardsList, userid }) {
                     <td className="card-table__item">
                       {price !== null ? `$${price}` : "N/A"}
                     </td>
+                    {/* adds extra column if editable is passed (only true when rendering collection table) */}
                     {editable && (
                       <td className="card-table__item">
                         <Link to={`/collection/${userid}/edit/${uid}`}>

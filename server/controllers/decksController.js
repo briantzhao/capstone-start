@@ -3,6 +3,7 @@ const decks = require("../models/deckModel");
 //finds all decks with a given card
 exports.filter = (req, res) => {
   let { cardName } = req.params;
+  //reverts changes to card name that allow it to be passed to axios
   cardName = cardName.replace(/_/g, " ");
   cardName = cardName.replace(/%2F/gi, "/");
   const decksList = decks.findDecks(cardName);

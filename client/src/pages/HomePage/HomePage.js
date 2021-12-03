@@ -9,6 +9,8 @@ export default function HomePage({ user }) {
   return (
     <main className="home__main">
       <h1 className="home__title">Sylvan Library</h1>
+      {/* renders welcome message if user is logged in
+      otherwise, renders login button */}
       {user !== null ? (
         <h2 className="home__welcome">
           Welcome, {user.firstName} {user.lastName}
@@ -18,7 +20,6 @@ export default function HomePage({ user }) {
           <button className="home__sign-up">Log In</button>
         </Link>
       )}
-      {/* Carousel */}
       <section className="home__carousel-section">
         <HomeCarousel />
       </section>

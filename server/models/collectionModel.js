@@ -2,6 +2,7 @@ const fs = require("fs"),
   path = require("path"),
   collFile = path.join(__dirname, "../data/collections.json"),
   cardsFile = path.join(__dirname, "../data/default-cards-filtered.json"),
+  //array of articles and prepositions
   nonUP = [
     "a",
     "an",
@@ -19,16 +20,19 @@ const fs = require("fs"),
     "to",
   ];
 
+//return all data from collections data
 const getAll = () => {
   const data = fs.readFileSync(collFile);
   return JSON.parse(data);
 };
 
+//return all data from cards data
 const getCards = () => {
   const data = fs.readFileSync(cardsFile);
   return JSON.parse(data);
 };
 
+//return user data for one user
 const getUser = (id, arr) => {
   const userEl = arr.find((user) => {
     return user.id === Number(id);
@@ -36,11 +40,13 @@ const getUser = (id, arr) => {
   return userEl;
 };
 
+//helper function, returns index of an element based on ID
 const getIndex = (id, arr) => {
   const singleEl = arr.findIndex((el) => el.id === Number(id));
   return singleEl;
 };
 
+//return collection data for one user
 const getUserColl = (userID) => {
   const collArray = getAll();
   const userData = getUser(userID, collArray);
@@ -50,6 +56,7 @@ const getUserColl = (userID) => {
   return userData.collection;
 };
 
+//queries card data to return card price based on uid and foiling
 const findPrice = (uid, foil) => {
   const cardsArray = getCards();
   const cardPrices = cardsArray.find((card) => {
@@ -64,6 +71,7 @@ const findPrice = (uid, foil) => {
   }
 };
 
+//posts card to specific user's collection
 const add = (userID, card) => {
   const collArray = getAll();
   const cardsArray = getCards();
@@ -74,6 +82,8 @@ const add = (userID, card) => {
     let cardName = collCard.name.split(" ");
     collCard.name = cardName
       .map((word) => {
+        //formatting so that the card name renders properly in collection page
+        //also smooths out process for other API calls
         if (nonUP.find((el) => el === word)) {
           return word;
         }
@@ -83,6 +93,7 @@ const add = (userID, card) => {
         return fixedName;
       })
       .join(" ");
+    //adds price data from card data
     const cardPrices = cardsArray.find((card) => {
       if (card !== null) {
         return card.id === collCard.uid;
@@ -100,6 +111,7 @@ const add = (userID, card) => {
   return null;
 };
 
+//get specific card from user collection based on UID
 const getById = (userID, cardID) => {
   const collArray = getAll();
   const userData = getUser(userID, collArray);
@@ -114,6 +126,9 @@ const getById = (userID, cardID) => {
   return card;
 };
 
+//initially only updated quantity
+//now potentially updates set info and foiling as well
+//gets card based on collection cardID
 const updateQuantity = (userID, cardID, newInfo) => {
   const { quantity, setID, set, foil, uid } = newInfo;
   const collArray = getAll();

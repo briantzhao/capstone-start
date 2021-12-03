@@ -23,15 +23,6 @@ exports.listSingleCard = (req, res) => {
   res.json(card);
 };
 
-//deletes data for a card in a collection
-// exports.deleteCard = (req, res) => {
-//   const updatedCollection = collection.remove(req.params.id);
-//   if (!updatedCollection) {
-//     res.status(400).json({ Message: "Please provide a valid card." });
-//   }
-//   res.json(updatedCollection);
-// };
-
 //updates quantity for a given card
 exports.updateCardQuantity = (req, res) => {
   const { userID, id } = req.params;

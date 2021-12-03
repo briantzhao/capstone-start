@@ -7,6 +7,7 @@ import "./SignupPage.scss";
 const API_URL = "http://localhost:8080/";
 
 export default class SignupPage extends Component {
+  //keeps track of input validity for all fields
   state = {
     email: "",
     emailValid: true,
@@ -17,12 +18,16 @@ export default class SignupPage extends Component {
     lastName: "",
     lastNameValid: true,
   };
+
+  //updates state whenever user inputs change
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value }, () => {
       this.validate(event.target.name, event.target.value);
     });
   };
 
+  //checks to see if inputs being passed are valid
+  //changes validity status to false if not, and true if so
   validate = (name, value) => {
     if (!value) {
       this.setState({ [`${name}Valid`]: false });
@@ -31,9 +36,11 @@ export default class SignupPage extends Component {
     this.setState({ [`${name}Valid`]: true });
   };
 
+  //onClick handler for form submit button
   handleSubmit = (event) => {
     event.preventDefault();
     const { email, password, firstName, lastName } = this.state;
+    //check if fields are filled in
     if (!(email && password && firstName && lastName)) {
       alert("Please fill out all fields in the form");
       this.validate("email", email);

@@ -6,6 +6,7 @@ import CardDisplay from "../../components/CardDisplay/CardDisplay";
 import "./CardPage.scss";
 
 const API_URL = "http://localhost:8080/";
+//array that holds articles and prepositions that should not be capitalized when searching for a card name
 const nonUP = [
   "a",
   "an",
@@ -27,9 +28,11 @@ export default class CardPage extends Component {
   state = {
     card: null,
     decks: null,
-    isFlipped: false,
   };
 
+  //queries cards route to get card image
+  //queries decks route to get decks that include this card in their list
+  //renders decks as a list of links
   componentDidMount() {
     axios
       .get(`${API_URL}cards/id/${this.props.match.params.uid}`)
@@ -60,11 +63,6 @@ export default class CardPage extends Component {
         console.log(err);
       });
   }
-
-  handleClick = (event) => {
-    event.preventDefault();
-    this.setState((prevstate) => ({ isFlipped: !prevstate.isFlipped }));
-  };
 
   render() {
     console.log(this.state.decks);

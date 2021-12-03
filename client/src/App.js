@@ -20,6 +20,7 @@ class App extends Component {
     user: null,
   };
 
+  //check if valid login exists, if so populates state
   componentDidMount() {
     const token = sessionStorage.getItem("token");
     if (!token) {
@@ -38,12 +39,16 @@ class App extends Component {
       });
   }
 
+  //on logout, remove token from sessionStorage and updates state
+  //passed to header for logout button onClick
   handleLogout = () => {
     sessionStorage.removeItem("token");
     this.setState({ loggedIn: false, user: null });
     alert("Thank you for using Sylvan Library. See you next time!");
   };
 
+  //on login, creates token in sessionStorage and updates state
+  //passed to signup and login pages to run on valid login
   handleLogin = (data) => {
     sessionStorage.setItem("token", data.token);
     this.setState({ loggedIn: true, user: data.user });
@@ -67,15 +72,7 @@ class App extends Component {
                   <HomePage {...props} user={this.state.user} />
                 )}
               />
-
-              {/* <PrivateRoute
-                path="/collection/:userid"
-                component={CollectionPage}
-              />
-              <PrivateRoute path="/decks/:id" component={DeckPage} />
-              <PrivateRoute path="/add/:userid" component={Form} />
-              <PrivateRoute path="/edit/:userid/:uid" component={Form} />
-              <PrivateRoute path="/card/:uid" component={CardPage} /> */}
+              {/* PrivateRoute redirects user to homepage if logout is triggered to prevent unauthorized site traversal */}
               <PrivateRoute
                 path="/collection/:userid"
                 exact

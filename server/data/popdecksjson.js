@@ -1,6 +1,8 @@
 const axios = require("axios");
 const fs = require("fs");
 
+//used to populate individual deck data from archidekt
+//since they only allow you to mass-query for minimal deck info
 const API_URL = "https://archidekt.com/api/decks/";
 let fullDecks = [];
 let urls = [];
@@ -19,10 +21,11 @@ const getUrls = () => {
 };
 getUrls();
 
+//recursively calls next with a setTimeout function
+//so that API calls are made in intervals
 const next = () => {
   if (!urls.length) {
     console.log("about to write to file");
-    // fs.writeFile("./data/decklists.json", JSON.stringify(fullDecks), (err) => {
     fs.appendFile("./data/decklists.json", JSON.stringify(fullDecks), (err) => {
       if (err) {
         console.log(err);
@@ -37,6 +40,7 @@ const next = () => {
     .get(url)
     .then(({ data }) => {
       console.log("successful call");
+      //removes data that isn't needed for scope of project, current and foreseeable future
       const newDeckList = data.cards.map((el) => {
         const strippedCard = {
           id: el.card.id,

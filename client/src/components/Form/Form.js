@@ -6,6 +6,7 @@ import "./Form.scss";
 import CardDisplay from "../CardDisplay/CardDisplay";
 
 const API_URL = "http://localhost:8080/";
+//array that holds articles and prepositions that should not be capitalized when searching for a card name
 const nonUP = [
   "a",
   "an",
@@ -24,6 +25,9 @@ const nonUP = [
 ];
 
 export default class Form extends Component {
+  //keeps track of input validity for most fields
+  //fields that are directly tied to other fields (mostly ID fields) do not have a validity tracker
+  //setNameList and displayCard are tracked to handle rendering of dropdown menu and card image respectively
   state = {
     cardID: "",
     cardUID: "",
@@ -39,7 +43,12 @@ export default class Form extends Component {
     setNameList: [],
     displayCard: null,
   };
+
   componentDidMount() {
+    //checks if a card ID was passed in URL
+    //signifies that we're trying to edit a card
+    //if so, grab the card data from collections route
+    //and populate the appropriate fields
     if (this.props.match.params.uid) {
       axios
         .get(
@@ -58,9 +67,11 @@ export default class Form extends Component {
               foil,
             },
             () => {
+              //grab list of all possible sets from cards route
               this.handleSubmitCard();
             }
           );
+          //grab card image url from cards route
           axios.get(`${API_URL}cards/id/${uid}`).then(({ data }) => {
             if (data) {
               this.setState({ displayCard: data.card });
@@ -72,12 +83,20 @@ export default class Form extends Component {
         });
     }
   }
+
+  //onClick for card lookup
+  //split so that componentDidMount can borrow logic
+  //for dropdown menu population
   submitCard = (event) => {
     event.preventDefault();
     this.handleSubmitCard();
   };
 
+  //queries cards route for all possible sets and populates dropdown menu
   handleSubmitCard = () => {
+    //axios calls can't be passed forward-slashes or spaces
+    //and card names are formatted in title case
+    //so we need to edit user input in order to create a successful axios call
     let searchCard = this.state.cardName.replace(/\//g, "%2F").split(" ");
     searchCard = searchCard.map((word) => {
       if (nonUP.find((el) => el === word)) {
@@ -109,6 +128,8 @@ export default class Form extends Component {
       });
   };
 
+  //updates state whenever user inputs change
+  //special handling for quantity so it's saved as a number
   handleChange = (event) => {
     if (event.target.name === "quantity") {
       const quantity = Number(event.target.value);
@@ -120,6 +141,10 @@ export default class Form extends Component {
     });
   };
 
+  //cardUID, setID, and setName are all stored in the dropdown value
+  //since these 3 values are tied together
+  //as a result, dropdown value is all values joined with commas
+  //and must be parsed to properly save state
   handleDropdown = (event) => {
     const setID = event.target.value.split(",")[0];
     const setName = event.target.value.split(",")[1];
@@ -136,6 +161,8 @@ export default class Form extends Component {
     });
   };
 
+  //checks to see if inputs being passed are valid
+  //changes validity status to false if not, and true if so
   validate = (name, value) => {
     if (value === null || value.length === 0) {
       this.setState({ [`${name}Valid`]: false });
@@ -144,10 +171,13 @@ export default class Form extends Component {
     this.setState({ [`${name}Valid`]: true });
   };
 
+  //onClick handler for form submit button
   handleSubmit = (event) => {
     event.preventDefault();
     const { cardID, cardUID, cardName, setID, setName, quantity, foil } =
       this.state;
+    //check if non-number fields are filled in
+    //(if we pass quantity, then having a quantity of 0, which is allowed, will always cause this to fail)
     if (!(cardName && setName && foil)) {
       alert("Please fill out all fields in the form");
       this.validate("cardName", cardName);
@@ -156,6 +186,7 @@ export default class Form extends Component {
       this.validate("foil", foil);
       return;
     }
+    //separate check for quantity
     if (quantity === "") {
       alert("Please fill out all fields in the form");
       this.setState({ quantityValid: false });
@@ -166,6 +197,8 @@ export default class Form extends Component {
       this.setState({ quantityValid: false });
       return;
     }
+    //check if this is supposed to be an edit form
+    //if so, do a patch request
     if (this.props.match.params.uid) {
       axios
         .patch(
@@ -188,9 +221,7 @@ export default class Form extends Component {
           quantity,
           foil,
         })
-        .then(() => {
-          // alert("Card added!");
-        })
+        .then(() => {})
         .catch((err) => {
           console.log(err);
         });
@@ -219,7 +250,7 @@ export default class Form extends Component {
                 valid={this.state.cardNameValid}
               />
               <button className="form__submit--card" onClick={this.submitCard}>
-                Submit
+                Lookup
               </button>
             </article>
             <label className="form__label">
@@ -234,6 +265,9 @@ export default class Form extends Component {
                 name="set"
                 onChange={this.handleDropdown}
               >
+                {/* check if setID has already been set
+                if so, that means this is an edit form
+                and the set should already be filled in */}
                 {this.state.setID === "" ? (
                   <option value="" selected disabled hidden>
                     Select a Set Name
@@ -242,6 +276,8 @@ export default class Form extends Component {
                   <></>
                 )}
                 {this.state.setNameList.map((set) => {
+                  //check if the possible sets matches the state setID
+                  //if so, default to that set as being selected
                   if (set.split(",")[0] === this.state.setID) {
                     return (
                       <option key={set.split(",")[0]} value={set} selected>

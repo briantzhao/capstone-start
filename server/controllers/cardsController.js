@@ -3,6 +3,7 @@ const card = require("../models/cardModel");
 //finds all versions of a given card name
 exports.filter = (req, res) => {
   const { cardName } = req.params;
+  //reverts changes to card name that allow it to be passed to axios
   let cardNameFixed = cardName.replace(/_/g, " ");
   cardNameFixed = cardNameFixed.replace(/%2F/gi, "/");
   const cards = card.getCardsByName(cardNameFixed);
@@ -31,6 +32,7 @@ exports.price = (req, res) => {
   if (!singleCard) {
     return res.status(400).json({ Message: "Price not found." });
   }
+  //returns foil price if card is foil
   if (foil) {
     res.status(200).json({ price: singleCard.prices.usdFoil });
     return;

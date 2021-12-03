@@ -22,6 +22,7 @@ export default function Header({ loggedIn, handleLogout, user }) {
               Home
             </NavLink>
           </li>
+          {/* only renders collection link if user is logged in */}
           {loggedIn ? (
             <li className="header__nav__list--collection">
               <NavLink to={`/collection/${user.id}`} activeClassName="true">
@@ -33,6 +34,7 @@ export default function Header({ loggedIn, handleLogout, user }) {
           )}
         </ul>
       </nav>
+      {/* renders either the login or logout button, depending on user status */}
       {loggedIn ? (
         <button className="header__logout" onClick={handleLogout}>
           Log Out

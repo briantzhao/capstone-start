@@ -1,5 +1,6 @@
 const fs = require("fs");
 
+//augments deck data with price and set data from card data
 let decks = [];
 let cards = [];
 let modDecks = [];
@@ -43,6 +44,9 @@ const getDecks = () => {
             categories: card.categories,
           };
           console.log(card.name);
+          //grabs price and set information from card data
+          //to add to deck information so that
+          //querying price info doesn't require an additional axios call
           const singleCard = cards.find((cardEl) => {
             if (cardEl !== null) {
               return cardEl.id === newCard.uid;

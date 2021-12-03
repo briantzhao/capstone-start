@@ -13,6 +13,9 @@ export default class DeckPage extends Component {
     price: 0,
   };
 
+  //grabs decklist information from deck routes
+  //then grabs commander images from cards routes
+  //then grabs price information from decks routes
   componentDidMount() {
     axios
       .get(`${API_URL}decks/${this.props.match.params.id}`)

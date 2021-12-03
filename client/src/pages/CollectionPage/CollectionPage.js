@@ -12,6 +12,7 @@ export default class CollectionPage extends Component {
     userid: null,
   };
 
+  //sets userid and collection information in state
   componentDidMount() {
     const currUser = this.props.match.params.userid;
     this.setState({ userid: currUser }, () => {
@@ -19,6 +20,8 @@ export default class CollectionPage extends Component {
     });
   }
 
+  //checks if collection has changed
+  //if so, updates collection information
   componentDidUpdate(prevProps, prevState) {
     const prevColl = prevState.collection;
     const currColl = this.state.collection;
@@ -27,6 +30,7 @@ export default class CollectionPage extends Component {
     }
   }
 
+  //axios call to grab collection information
   updateColl = (userid) => {
     axios
       .get(`${API_URL}collections/${userid}`)

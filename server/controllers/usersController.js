@@ -2,7 +2,9 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
+//creates new user
 exports.signUpUser = (req, res) => {
+  //hashes user password so it can't be read from data
   bcrypt
     .hash(req.body.password, 8)
     .then((password) => {
@@ -13,6 +15,8 @@ exports.signUpUser = (req, res) => {
           .status(400)
           .json({ Message: "A user with that email already exists" });
       }
+      //if user creation is successful, returns user data along with JWT
+      //sets password to null
       const token = jwt.sign({ email: newUser.email }, process.env.JWT_SECRET, {
         expiresIn: "24h",
       });
@@ -23,15 +27,18 @@ exports.signUpUser = (req, res) => {
     });
 };
 
+//validates login for user
 exports.signInUser = (req, res) => {
   const confirmedUser = User.findOne(req.body.email);
   if (!confirmedUser) {
     return res.status(500).json({ Message: "User not found" });
   }
+  //checks if password matches password stored in data
   bcrypt.compare(req.body.password, confirmedUser.password).then((isMatch) => {
     if (!isMatch) {
       return res.status(400).json({ Message: "Invalid credentials" });
     }
+    //if so, create a JWT and pass back to client
     const token = jwt.sign(
       { email: confirmedUser.email },
       process.env.JWT_SECRET,
@@ -43,6 +50,7 @@ exports.signInUser = (req, res) => {
   });
 };
 
+//return information about the current user
 exports.getCurrentUser = (req, res, next) => {
   const confirmedUser = User.findOne(req.user);
   return res.json({ ...confirmedUser, password: null });

@@ -1,5 +1,7 @@
 import "./Input.scss";
 
+//valid prop is a boolean that applies different classes to input element
+//also renders error message if true
 export default function Input({
   label,
   name,
@@ -12,6 +14,8 @@ export default function Input({
   return (
     <label className="input__label">
       {label}
+      {/* checked is passed for radio buttons
+      sets status to checked by default if true */}
       {checked ? (
         <input
           className={
