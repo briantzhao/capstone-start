@@ -11,4 +11,22 @@
     background-color: $black;
     color: $white;
   }
+  &__carousel-section {
+    margin-top: 2rem;
+  }
+  &__links {
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    &__logo {
+      height: 5rem;
+      &--edhrec {
+        background-color: black;
+        width: 20rem;
+      }
+    }
+  }
 }

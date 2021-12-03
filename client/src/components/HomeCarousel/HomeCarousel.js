@@ -6,7 +6,7 @@ import "./HomeCarousel.scss";
 
 export default function HomeCarousel() {
   return (
-    <Carousel showArrows={true} infiniteLoop autoPlay width="80%">
+    <Carousel showArrows={true} infiniteLoop autoPlay width="60%">
       <a
         className="carousel__single"
         href="https://magic.wizards.com/en/articles/archive/magic-digital/introducing-alchemy-new-way-play-mtg-arena-2021-12-02"
