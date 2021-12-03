@@ -16,9 +16,7 @@ export default function HomePage({ user }) {
           Welcome, {user.firstName} {user.lastName}
         </h2>
       ) : (
-        <Link to="/login">
-          <button className="home__sign-up">Log In</button>
-        </Link>
+        <></>
       )}
       <section className="home__carousel-section">
         <HomeCarousel />
