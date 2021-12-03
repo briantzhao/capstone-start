@@ -18,11 +18,15 @@ export default function Header({ loggedIn, handleLogout, user }) {
       <nav className="header__nav">
         <ul className="header__nav__list">
           <li className="header__nav__list--home">
-            <NavLink to="/">Home</NavLink>
+            <NavLink exact to="/" activeClassName="true">
+              Home
+            </NavLink>
           </li>
           {loggedIn ? (
             <li className="header__nav__list--collection">
-              <NavLink to={`/collection/${user.id}`}>Collection</NavLink>
+              <NavLink to={`/collection/${user.id}`} activeClassName="true">
+                Collection
+              </NavLink>
             </li>
           ) : (
             <></>

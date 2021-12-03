@@ -68,14 +68,26 @@ class App extends Component {
                 )}
               />
 
-              <PrivateRoute
+              {/* <PrivateRoute
                 path="/collection/:userid"
                 component={CollectionPage}
               />
               <PrivateRoute path="/decks/:id" component={DeckPage} />
               <PrivateRoute path="/add/:userid" component={Form} />
               <PrivateRoute path="/edit/:userid/:uid" component={Form} />
-              <PrivateRoute path="/card/:uid" component={CardPage} />
+              <PrivateRoute path="/card/:uid" component={CardPage} /> */}
+              <PrivateRoute
+                path="/collection/:userid"
+                exact
+                component={CollectionPage}
+              />
+              <PrivateRoute path="/collection/decks/:id" component={DeckPage} />
+              <PrivateRoute path="/collection/:userid/add" component={Form} />
+              <PrivateRoute
+                path="/collection/:userid/edit/:uid"
+                component={Form}
+              />
+              <PrivateRoute path="/collection/card/:uid" component={CardPage} />
               <Route
                 path="/login"
                 render={(props) => (

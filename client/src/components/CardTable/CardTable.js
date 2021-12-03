@@ -23,7 +23,7 @@ export default function CardTable({ editable, cardsList, userid }) {
                 <>
                   <tr className="card-table__single">
                     <td className="card-table__item card-table__item--name">
-                      <Link to={`/card/${uid}`}>
+                      <Link to={`/collection/card/${uid}`}>
                         {name}{" "}
                         <img
                           className="card-table__item__chevron"
@@ -39,7 +39,7 @@ export default function CardTable({ editable, cardsList, userid }) {
                     </td>
                     {editable && (
                       <td className="card-table__item">
-                        <Link to={`/edit/${userid}/${uid}`}>
+                        <Link to={`/collection/${userid}/edit/${uid}`}>
                           <div className="card-table__item__btn">
                             <img
                               className="card-table__item__btn--img"

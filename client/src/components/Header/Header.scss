@@ -1,7 +1,7 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 .header {
-  background-color: $green;
+  background-color: $darkg;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -28,6 +28,15 @@
         display: block;
       }
     }
+    & a {
+      width: 8.75rem;
+      padding: 0.5rem 0.5rem;
+      border-radius: 1.25rem;
+      @include h3-labels-links-buttons;
+      border: 1px solid $black;
+      background-color: $green;
+      color: $white;
+    }
   }
   &__logout,
   &__login {
@@ -42,4 +51,7 @@
       width: 8.75rem;
     }
   }
+}
+.true {
+  background-color: $black !important;
 }

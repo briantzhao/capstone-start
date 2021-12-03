@@ -106,7 +106,7 @@ export default class CardPage extends Component {
                     return (
                       <li className="card-page__deck">
                         {" "}
-                        <Link to={`/decks/${deck.id}`}>
+                        <Link to={`/collection/decks/${deck.id}`}>
                           <div className="card-page__deck__link">
                             {deck.name}
                           </div>

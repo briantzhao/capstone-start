@@ -44,7 +44,7 @@ export default class CollectionPage extends Component {
     return (
       <main className="collection">
         <h1 className="collection__title">Your Collection</h1>
-        <Link to={`/add/${this.state.userid}`}>
+        <Link to={`/collection/${this.state.userid}/add`}>
           <button className="collection__btn--add">Add a Card</button>
         </Link>
         <CardTable

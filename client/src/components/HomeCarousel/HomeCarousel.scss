@@ -1,0 +1,28 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.carousel-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.carousel__single {
+  position: relative;
+}
+.carousel__legend {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.25rem;
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  //   z-index: 10;
+  color: $white;
+  font-size: 0.6rem;
+  font-weight: 600;
+  @include tablet {
+    font-size: 1.5rem;
+  }
+}
+.carousel-status {
+  display: none;
+}
