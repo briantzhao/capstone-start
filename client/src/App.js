@@ -67,15 +67,11 @@ class App extends Component {
                   <HomePage {...props} user={this.state.user} />
                 )}
               />
-              {/* <Route path="/collection/:userid" component={CollectionPage} /> */}
+
               <PrivateRoute
                 path="/collection/:userid"
                 component={CollectionPage}
               />
-              {/* <Route path="/decks" exact component={DeckPage} />
-            <Route path="/decks/:id" component={DeckPage} />
-            <Route path="/add/:userid" component={Form} />
-            <Route path="/edit/:userid/:uid" component={Form} /> */}
               <PrivateRoute path="/decks/:id" component={DeckPage} />
               <PrivateRoute path="/add/:userid" component={Form} />
               <PrivateRoute path="/edit/:userid/:uid" component={Form} />
@@ -92,7 +88,6 @@ class App extends Component {
                   <SignupPage {...props} handleLogin={this.handleLogin} />
                 )}
               />
-              {/* <Route path="/card/:uid" component={CardPage} /> */}
             </Switch>
           </main>
         </Router>

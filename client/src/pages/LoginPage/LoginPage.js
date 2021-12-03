@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Input from "../../components/Input/Input";
+import "./LoginPage.scss";
 
 const API_URL = "http://localhost:8080/";
 

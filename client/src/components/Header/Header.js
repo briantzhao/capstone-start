@@ -27,12 +27,6 @@ export default function Header({ loggedIn, handleLogout, user }) {
           ) : (
             <></>
           )}
-          {/* <li>
-            <NavLink to="/decks">Decks</NavLink>
-          </li> */}
-          {/* <li>
-            <NavLink to="/market">Market Trends</NavLink>
-          </li> */}
         </ul>
       </nav>
       {loggedIn ? (

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Input from "../Input/Input";
 import "./Form.scss";
+import CardDisplay from "../CardDisplay/CardDisplay";
 
 const API_URL = "http://localhost:8080/";
 const nonUP = [
@@ -36,6 +37,7 @@ export default class Form extends Component {
     foil: null,
     foilValid: true,
     setNameList: [],
+    displayCard: null,
   };
   componentDidMount() {
     if (this.props.match.params.uid) {
@@ -44,7 +46,6 @@ export default class Form extends Component {
           `${API_URL}collections/${this.props.match.params.userid}/${this.props.match.params.uid}`
         )
         .then(({ data }) => {
-          console.log(data);
           const { id, uid, name, setID, set, quantity, foil } = data;
           this.setState(
             {
@@ -60,6 +61,11 @@ export default class Form extends Component {
               this.handleSubmitCard();
             }
           );
+          axios.get(`${API_URL}cards/id/${uid}`).then(({ data }) => {
+            if (data) {
+              this.setState({ displayCard: data.card });
+            }
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -86,12 +92,15 @@ export default class Form extends Component {
     axios
       .get(`${API_URL}cards/${searchCard}`)
       .then(({ data }) => {
-        console.log(data);
         const sets = data.map((version) => {
           return `${version.setID},${version.set.toUpperCase()},${version.id},${
             version.setName
           }`;
         });
+        if (sets.length === 0) {
+          alert("No cards with that name found. Be sure to match spelling.");
+          return;
+        }
         this.setState({ setNameList: sets });
       })
       .catch((err) => {
@@ -112,18 +121,22 @@ export default class Form extends Component {
   };
 
   handleDropdown = (event) => {
-    console.log(event.target.value);
     const setID = event.target.value.split(",")[0];
     const setName = event.target.value.split(",")[1];
     const cardUID = event.target.value.split(",")[2];
+    if (cardUID) {
+      axios.get(`${API_URL}cards/id/${cardUID}`).then(({ data }) => {
+        if (data) {
+          this.setState({ displayCard: data.card });
+        }
+      });
+    }
     this.setState({ setID, setName, cardUID }, () => {
-      console.log(this.state);
       this.validate("setName", setName);
     });
   };
 
   validate = (name, value) => {
-    console.log("name: ", name, " value: ", value);
     if (value === null || value.length === 0) {
       this.setState({ [`${name}Valid`]: false });
       return;
@@ -133,7 +146,6 @@ export default class Form extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
     const { cardID, cardUID, cardName, setID, setName, quantity, foil } =
       this.state;
     if (!(cardName && setName && foil)) {
@@ -177,7 +189,7 @@ export default class Form extends Component {
           foil,
         })
         .then(() => {
-          alert("Card added!");
+          // alert("Card added!");
         })
         .catch((err) => {
           console.log(err);
@@ -188,90 +200,101 @@ export default class Form extends Component {
   render() {
     return (
       <form className="form">
-        <section className="form__card-section">
-          <Input
-            label="Card"
-            name="cardName"
-            type="text"
-            value={this.state.cardName}
-            onChange={this.handleChange}
-            valid={this.state.cardNameValid}
-          />
-          <button className="form__submit--card" onClick={this.submitCard}>
-            Submit
-          </button>
-        </section>
-        <label className="form__label">
-          Set Name
-          <select
-            className={
-              this.state.setNameValid
-                ? "form__field"
-                : "form__field form__field--error"
-            }
-            placeholder="Please Select"
-            name="set"
-            onChange={this.handleDropdown}
-          >
-            {this.state.setID === "" ? (
-              <option value="" selected disabled hidden>
-                Select a Set Name
-              </option>
+        <div className="form__main">
+          <section className="form__picture">
+            {this.state.displayCard !== null ? (
+              <CardDisplay card={this.state.displayCard} />
             ) : (
               <></>
             )}
-            {this.state.setNameList.map((set) => {
-              if (set.split(",")[0] === this.state.setID) {
-                return (
-                  <option key={set.split(",")[0]} value={set} selected>
-                    {set.split(",")[3]}
+          </section>
+          <section className="form__fields">
+            <article className="form__card-section">
+              <Input
+                label="Card"
+                name="cardName"
+                type="text"
+                value={this.state.cardName}
+                onChange={this.handleChange}
+                valid={this.state.cardNameValid}
+              />
+              <button className="form__submit--card" onClick={this.submitCard}>
+                Submit
+              </button>
+            </article>
+            <label className="form__label">
+              Set Name
+              <select
+                className={
+                  this.state.setNameValid
+                    ? "form__field"
+                    : "form__field form__field--error"
+                }
+                placeholder="Please Select"
+                name="set"
+                onChange={this.handleDropdown}
+              >
+                {this.state.setID === "" ? (
+                  <option value="" selected disabled hidden>
+                    Select a Set Name
                   </option>
-                );
-              }
-              return (
-                <option key={set.split(",")[0]} value={set}>
-                  {set.split(",")[3]}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-        <Input
-          label="Quantity"
-          name="quantity"
-          type="number"
-          value={this.state.quantity}
-          onChange={this.handleChange}
-          valid={this.state.quantityValid}
-        />
-        <section className="form__radio-inputs">
-          <Input
-            label="Foil"
-            name="foil"
-            type="radio"
-            value="foil"
-            onChange={this.handleChange}
-            valid={null}
-            checked={this.state.foil === "foil"}
-          />
-          <Input
-            label="Non-Foil"
-            name="foil"
-            type="radio"
-            value="nonfoil"
-            onChange={this.handleChange}
-            valid={this.state.foilValid}
-            checked={this.state.foil === "nonfoil"}
-          />
-        </section>
-        <section className="form__buttons">
+                ) : (
+                  <></>
+                )}
+                {this.state.setNameList.map((set) => {
+                  if (set.split(",")[0] === this.state.setID) {
+                    return (
+                      <option key={set.split(",")[0]} value={set} selected>
+                        {set.split(",")[3]}
+                      </option>
+                    );
+                  }
+                  return (
+                    <option key={set.split(",")[0]} value={set}>
+                      {set.split(",")[3]}
+                    </option>
+                  );
+                })}
+              </select>
+            </label>
+            <Input
+              label="Quantity"
+              name="quantity"
+              type="number"
+              value={this.state.quantity}
+              onChange={this.handleChange}
+              valid={this.state.quantityValid}
+            />
+            <article className="form__radio-inputs">
+              <Input
+                label="Foil"
+                name="foil"
+                type="radio"
+                value="foil"
+                onChange={this.handleChange}
+                valid={null}
+                checked={this.state.foil === "foil"}
+              />
+              <Input
+                label="Non-Foil"
+                name="foil"
+                type="radio"
+                value="nonfoil"
+                onChange={this.handleChange}
+                valid={this.state.foilValid}
+                checked={this.state.foil === "nonfoil"}
+              />
+            </article>
+          </section>
+        </div>
+        <article className="form__buttons">
           <Link to={`/collection/${this.props.match.params.userid}`}>
             <button className="form__btn--cancel">Cancel</button>
           </Link>
           <button className="form__btn--submit" onClick={this.handleSubmit}>
             Submit
           </button>
-        </section>
+        </article>
       </form>
     );
   }

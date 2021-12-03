@@ -1,7 +1,3 @@
-// const fs = require("fs"),
-//   path = require("path"),
-//   collFile = path.join(__dirname, "../data/collections.json"),
-//   cardsFile = path.join(__dirname, "../data/default-cards-filtered.json");3
 const fs = require("fs"),
   path = require("path"),
   collFile = path.join(__dirname, "../data/collections.json"),
@@ -117,18 +113,6 @@ const getById = (userID, cardID) => {
   });
   return card;
 };
-
-// const remove = (cardID) => {
-//     const collArray = getAll();
-//     const userIndex = getIndex(userID, collArray);
-//     if (userIndex >= 0) {
-//         const cardIndex = getIndex(cardID, collArray[userIndex].collection)
-//         collArray[userIndex].collection.splice(cardIndex, 1)
-//         fs.writeFileSync(collFile, JSON.stringify(collArray))
-//         return collArray[userIndex].collection;
-//     }
-//     return null;
-// }
 
 const updateQuantity = (userID, cardID, newInfo) => {
   const { quantity, setID, set, foil, uid } = newInfo;

@@ -2,12 +2,33 @@
 @use "../../styles/partials/variables" as *;
 
 .form {
+  padding: 0 1rem;
   padding-top: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: 2rem;
+  &__main {
+    @include tablet {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    @include desktop {
+      margin: 3rem 0;
+    }
+  }
+  &__picture {
+    @include desktop {
+      width: 20vw;
+    }
+  }
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
   &__card-section {
     display: flex;
     justify-content: center;
@@ -73,15 +94,16 @@
     display: flex;
     justify-content: center;
     gap: 2rem;
+    height: 30vh;
     @include tablet {
       justify-content: flex-end;
       gap: 1rem;
-      padding: 1rem 2rem;
+      padding: 1rem;
     }
     @include desktop {
       justify-content: flex-end;
       gap: 1rem;
-      padding: 1rem 2.5rem;
+      padding: 1rem;
     }
   }
 
@@ -92,6 +114,7 @@
     width: 8.75rem;
     padding: 0.5rem 0.5rem;
     border-radius: 1.25rem;
+    height: 2.5rem;
     @include h3-labels-links-buttons;
     border: 1px solid #bdc5d5;
     background-color: white;

@@ -3,30 +3,24 @@
 .App {
   text-align: center;
   box-sizing: border-box;
-  height: 100vh;
+  height: 700vh;
   background-color: $white;
-  // &__main {
-  //   background-color: $white;
-  //   position: relative;
-  //   width: 92%;
-  //   margin: 0 auto;
-  //   padding: 2rem 0;
-  //   padding-bottom: 0;
-  //   border-radius: 3px;
-  //   box-shadow: 0px 2px 5px 0px $black;
-  // }
 }
 
 a {
   height: auto;
   text-decoration: none;
   color: $black;
+  cursor: pointer;
   &:visited {
     text-decoration: none;
     color: $black;
   }
 }
 
+button {
+  cursor: pointer;
+}
 ul {
   list-style-type: none;
   padding: 0;

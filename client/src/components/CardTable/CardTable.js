@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import "./CardTable.scss";
+import edit from "../../assets/images/edit-24px.svg";
+import chevron from "../../assets/images/chevron_right-24px.svg";
 
 export default function CardTable({ editable, cardsList, userid }) {
   if (cardsList !== null) {
@@ -20,8 +22,15 @@ export default function CardTable({ editable, cardsList, userid }) {
               return (
                 <>
                   <tr className="card-table__single">
-                    <td className="card-table__item">
-                      <Link to={`/card/${uid}`}>{name}</Link>
+                    <td className="card-table__item card-table__item--name">
+                      <Link to={`/card/${uid}`}>
+                        {name}{" "}
+                        <img
+                          className="card-table__item__chevron"
+                          src={chevron}
+                          alt="chevron"
+                        />
+                      </Link>
                     </td>
                     <td className="card-table__item">{set.toUpperCase()}</td>
                     <td className="card-table__item">{quantity}</td>
@@ -31,46 +40,18 @@ export default function CardTable({ editable, cardsList, userid }) {
                     {editable && (
                       <td className="card-table__item">
                         <Link to={`/edit/${userid}/${uid}`}>
-                          <div className="card-table__item__btn--edit">
+                          <div className="card-table__item__btn">
+                            <img
+                              className="card-table__item__btn--img"
+                              src={edit}
+                              alt="edit"
+                            />
                             Edit
                           </div>
                         </Link>
-                        {/* <div
-                className="card-table__item__btn--delete"
-                onClick={
-                  getItem
-                    ? () => {
-                        getItem(id);
-                      }
-                    : null
-                }
-              >
-                Delete
-              </div> */}
                       </td>
                     )}
                   </tr>
-                  {/* {editable && (
-                    <td className="card-table__item--mobile">
-                      <Link to={`/edit/${userid}/${uid}`}>
-                        <div className="card-table__item__btn--edit card-table__item__btn--mobile">
-                          Edit
-                        </div>
-                      </Link>
-                      <div
-              className="card-table__item__btn--delete card-table__item__btn--mobile"
-              onClick={
-                getItem
-                  ? () => {
-                      getItem(id);
-                    }
-                  : null
-              }
-            >
-              Delete
-            </div>
-                    </td>
-                  )} */}
                 </>
               );
             })

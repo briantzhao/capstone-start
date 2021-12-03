@@ -1,0 +1,11 @@
+@use "../../styles/partials/mixins" as *;
+
+.card-display {
+  &__img {
+    max-width: 90vw;
+    @include tablet {
+      max-width: 100%;
+    }
+    cursor: pointer;
+  }
+}

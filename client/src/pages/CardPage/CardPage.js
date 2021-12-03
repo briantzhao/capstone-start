@@ -2,6 +2,7 @@ import axios from "axios";
 import { Component } from "react";
 import ReactCardFlip from "react-card-flip";
 import { Link } from "react-router-dom";
+import CardDisplay from "../../components/CardDisplay/CardDisplay";
 import "./CardPage.scss";
 
 const API_URL = "http://localhost:8080/";
@@ -73,69 +74,50 @@ export default class CardPage extends Component {
     return (
       <main className="card-page">
         <h1 className="card-page__title">{this.state.card.name}</h1>
-        {this.state.card.cardFaces.length === 1 ? (
-          <img
-            className="card-page__img"
-            src={this.state.card.cardFaces[0].imageURIs.normal}
-            alt={this.state.card.name}
-          />
-        ) : (
-          <section className="card-page__flip">
-            <ReactCardFlip
-              isFlipped={this.state.isFlipped}
-              flipDirection="horizontal"
-            >
-              <img
-                className="card-page__img"
-                src={this.state.card.cardFaces[0].imageURIs.normal}
-                alt={this.state.card.name}
-                onClick={this.handleClick}
-              />
-              <img
-                className="card-page__img"
-                src={this.state.card.cardFaces[1].imageURIs.normal}
-                alt={this.state.card.name}
-                onClick={this.handleClick}
-              />
-            </ReactCardFlip>
-            <h3 className="card-page__flip-prompt">
-              Click Card to See Back Side
-            </h3>
-          </section>
-        )}
-        <section className="card-page__prices">
-          <h2 className="card-page__subtitle">Prices</h2>
-          <p className="card-page__price">
-            Non-Foil: $
-            {this.state.card.prices.usd
-              ? this.state.card.prices.usd
-              : "Unavailable"}
-          </p>
-          <p className="card-page__price">
-            Foil: $
-            {this.state.card.prices.usdFoil
-              ? this.state.card.prices.usdFoil
-              : "Unavailable"}
-          </p>
-        </section>
-        <section className="card-page__decks">
-          <h2 className="card-page__subtitle">
-            Decks Using {this.state.card.name}
-          </h2>
-          <ul className="card-page__decklists">
-            {this.state.decks === "None" ? (
-              <h3 className="card-page__no-decks">None</h3>
-            ) : (
-              this.state.decks.map((deck) => {
-                return (
-                  <li className="card-page__deck">
-                    {" "}
-                    <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
-                  </li>
-                );
-              })
-            )}
-          </ul>
+        <section className="card-page__details">
+          <article className="card-page__picture">
+            <CardDisplay card={this.state.card} />
+          </article>
+          <article className="card-page__text">
+            <div className="card-page__prices">
+              <h2 className="card-page__subtitle">Prices</h2>
+              <p className="card-page__price">
+                Non-Foil: $
+                {this.state.card.prices.usd
+                  ? this.state.card.prices.usd
+                  : "Unavailable"}
+              </p>
+              <p className="card-page__price">
+                Foil: $
+                {this.state.card.prices.usdFoil
+                  ? this.state.card.prices.usdFoil
+                  : "Unavailable"}
+              </p>
+            </div>
+            <div className="card-page__decks">
+              <h2 className="card-page__subtitle">
+                Decks Using {this.state.card.name}
+              </h2>
+              <ul className="card-page__decklists">
+                {this.state.decks === "None" ? (
+                  <h3 className="card-page__no-decks">None</h3>
+                ) : (
+                  this.state.decks.map((deck) => {
+                    return (
+                      <li className="card-page__deck">
+                        {" "}
+                        <Link to={`/decks/${deck.id}`}>
+                          <div className="card-page__deck__link">
+                            {deck.name}
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  })
+                )}
+              </ul>
+            </div>
+          </article>
         </section>
       </main>
     );

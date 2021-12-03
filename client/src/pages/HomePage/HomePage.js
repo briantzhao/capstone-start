@@ -1,28 +1,6 @@
 import { Link } from "react-router-dom";
+import "./HomePage.scss";
 export default function HomePage({ user }) {
-  // state = {
-  //   user: null,
-  //   failedAuth: false,
-  // };
-
-  // componentDidMount() {
-  //   const token = sessionStorage.getItem("token");
-  //   if (!token) {
-  //     return this.setState({ failedAuth: true });
-  //   }
-
-  //   axios
-  //     .get(`${API_URL}users/current`, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     })
-  //     .then(({ data }) => {
-  //       this.setState({ user: data });
-  //     })
-  //     .catch((err) => {
-  //       this.setState({ failedAuth: true });
-  //     });
-  // }
-
   return (
     <main className="home__main">
       <h1 className="home__title">Sylvan Library</h1>

@@ -27,89 +27,46 @@
     padding: 0 1.5rem;
     background-color: $white;
   }
+  &__item {
+    &--name {
+      @include tablet {
+        min-width: 25rem;
+      }
+      & a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.25rem;
+      }
+    }
+    &__chevron {
+      height: 1.125rem;
+      padding-top: 0.125rem;
+      &:hover {
+        animation: animate-link 1s ease-out infinite;
+      }
+    }
+    &__btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.25rem;
+      &--img {
+        height: 1.125rem;
+        padding-top: 0.125rem;
+      }
+    }
+  }
+}
 
-  //   &__item,
-  //   &__category,
-  //   &__status,
-  //   &__quantity,
-  //   &__action--tablet {
-  //     display: flex;
-  //     flex-direction: column;
-  //     justify-content: center;
-  //     align-items: flex-start;
-  //     gap: 0.25rem;
-  //     margin: 0.25rem 0;
-  //     width: 50%;
-  //     flex: 1;
-  //     min-height: 13.3vw;
-  //     max-height: 13.5vw;
-  //     @include p2-body-medium;
-  //     @include tablet {
-  //       display: table-cell;
-  //       width: auto;
-  //     }
-  //     &:before {
-  //       @include h4-header;
-  //       @include tablet {
-  //         display: none;
-  //       }
-  //     }
-  //   }
+@keyframes animate-link {
+  0% {
+    transform: translateX(0rem);
+    opacity: 0.9;
+  }
 
-  //   //pseudo-selectors to render column titles on mobile
-  //   &__item:before {
-  //     content: "INVENTORY ITEM";
-  //   }
-  //   &__category:before {
-  //     content: "CATEGORY";
-  //   }
-  //   &__status:before {
-  //     content: "STATUS";
-  //   }
-  //   &__quantity:before {
-  //     content: "QTY";
-  //   }
-
-  //   &__action {
-  //     margin: 0 1.5rem;
-  //     margin-bottom: 1.6875rem;
-  //     display: flex;
-  //     justify-content: space-between;
-  //     align-items: flex-end;
-  //     @include tablet {
-  //       display: none;
-  //     }
-  //     &--tablet {
-  //       display: none;
-  //       @include tablet {
-  //         display: table-cell;
-  //       }
-  //     }
-  //     &__btn {
-  //       height: 1.125rem;
-  //     }
-  //     &__edit-link {
-  //       margin-left: 1.5rem;
-  //     }
-  //   }
-
-  //   &__item {
-  //     @include tablet {
-  //       padding-left: 2rem;
-  //     }
-  //     @include desktop {
-  //       padding-left: 2.5rem;
-  //     }
-  //     &--mobile {
-  //       @include tablet {
-  //         display: none;
-  //       }
-  //     }
-  //   }
-
-  //   &__item__cell {
-  //     display: flex;
-  //     align-items: center;
-  //     gap: 0.7rem;
-  //   }
+  100% {
+    transform: translateX(0.25rem);
+    opacity: 0.5;
+  }
 }
