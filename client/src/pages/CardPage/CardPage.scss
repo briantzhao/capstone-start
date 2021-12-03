@@ -1,0 +1,71 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.card-page {
+  margin-top: 2rem;
+  background-color: $white;
+  padding: 0 1rem;
+  @include desktop {
+    width: 63.75rem;
+    margin: 2rem auto;
+  }
+  &__title {
+    @include h1-page-header;
+    color: $black;
+  }
+  &__picture {
+    @include desktop {
+      width: 30vw;
+    }
+  }
+  &__details {
+    @include tablet {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding-top: 2rem;
+    }
+    @include desktop {
+      gap: 5rem;
+    }
+  }
+  &__subtitle {
+    margin-top: 0;
+  }
+  &__prices,
+  &__decks {
+    @include tablet {
+      text-align: left;
+    }
+  }
+  &__price,
+  &__subtitle {
+    @include h2-subheader;
+    color: $black;
+  }
+  &__price {
+    text-align: center;
+  }
+  &__decklists {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  &__deck,
+  &__price {
+    width: 15rem;
+    margin-left: 2rem;
+    text-decoration: none;
+    padding: 0.5rem 0.5rem;
+    border-radius: 1.25rem;
+    @include h3-labels-links-buttons;
+    border: 1px solid #bdc5d5;
+    background-color: white;
+    &__link {
+      width: 13rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+}

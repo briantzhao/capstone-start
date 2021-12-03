@@ -1,0 +1,67 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.login {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    &__title {
+      @include h1-page-header;
+      color: $black;
+    }
+    &__creds {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+    &__buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    &__btn--submit {
+      width: 8.75rem;
+      padding: 0.5rem 0.5rem;
+      border-radius: 1.25rem;
+      @include h3-labels-links-buttons;
+      border: 1px solid $black;
+      background-color: $black;
+      color: $white;
+    }
+    &__btn--cancel {
+      text-decoration: none;
+      width: 8.75rem;
+      padding: 0.5rem 0.5rem;
+      border-radius: 1.25rem;
+      @include h3-labels-links-buttons;
+      border: 1px solid #bdc5d5;
+      background-color: white;
+      @include tablet {
+        width: 4.5rem;
+      }
+      @include desktop {
+        width: 4.5rem;
+      }
+    }
+  }
+  &__signup__title {
+    @include h2-subheader;
+    color: $black;
+  }
+  &__signup__button {
+    width: 8.75rem;
+    padding: 0.5rem 0.5rem;
+    border-radius: 1.25rem;
+    @include h3-labels-links-buttons;
+    border: 1px solid $black;
+    background-color: $black;
+    color: $white;
+  }
+}

@@ -1,0 +1,72 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.card-table {
+  border-collapse: collapse;
+  width: 100%;
+  color: $black;
+
+  &__headers {
+    background-color: $lightg;
+    @include tablet {
+      padding: 0 2rem;
+    }
+    @include desktop {
+      padding: 0 2.5rem;
+    }
+  }
+
+  &__label {
+    @include h4-header;
+    padding: 0.6875rem 0;
+    width: 6.25rem;
+  }
+
+  &__single {
+    border-top: 1px solid $black;
+    padding: 0 1.5rem;
+    background-color: $white;
+  }
+  &__item {
+    &--name {
+      @include tablet {
+        min-width: 25rem;
+      }
+      & a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.25rem;
+      }
+    }
+    &__chevron {
+      height: 1.125rem;
+      padding-top: 0.125rem;
+      &:hover {
+        animation: animate-link 1s ease-out infinite;
+      }
+    }
+    &__btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.25rem;
+      &--img {
+        height: 1.125rem;
+        padding-top: 0.125rem;
+      }
+    }
+  }
+}
+
+@keyframes animate-link {
+  0% {
+    transform: translateX(0rem);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateX(0.25rem);
+    opacity: 0.5;
+  }
+}

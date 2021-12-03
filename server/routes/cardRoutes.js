@@ -1,8 +1,14 @@
 const router = require("express").Router();
-const axios = require("axios");
-const { filter, price } = require("../controllers/cardsController");
+const { filter, price, searchById } = require("../controllers/cardsController");
 
+//get all possible versions of a card
 router.get("/:cardName", filter);
-router.get("/price/:cardName", price);
+
+//get price of a specific card
+//returns foil or nonfoil price
+router.get("/price/:cardID/:foil", price);
+
+//get specific card by UID
+router.get("/id/:cardID", searchById);
 
 module.exports = router;

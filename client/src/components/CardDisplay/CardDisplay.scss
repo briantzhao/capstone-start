@@ -1,0 +1,16 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.card-display {
+  &__img {
+    max-width: 90vw;
+    @include tablet {
+      max-width: 100%;
+    }
+    cursor: pointer;
+  }
+  &__flip-prompt {
+    @include h3-labels-links-buttons;
+    color: $black;
+  }
+}

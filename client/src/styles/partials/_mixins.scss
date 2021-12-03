@@ -1,5 +1,89 @@
+//media queries
 @mixin flex($direction, $justify) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justify;
+}
+
+@mixin tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+//text
+@mixin h1-page-header {
+  font-weight: 600;
+  font-size: 1.75rem;
+  line-height: 2rem;
+
+  @include tablet {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
+@mixin h2-subheader {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+
+  @include tablet {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+@mixin h3-labels-links-buttons {
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+
+  @include tablet {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+}
+@mixin h4-header {
+  font-weight: 600;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+
+  @include tablet {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+}
+@mixin p1-body-large {
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.625rem;
+
+  @include tablet {
+    font-size: 1rem;
+    line-height: 1.75rem;
+  }
+}
+@mixin p2-body-medium {
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+
+  @include tablet {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+}
+@mixin p3-body-small {
+  font-weight: 400;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  @include tablet {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
 }

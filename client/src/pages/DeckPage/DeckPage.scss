@@ -1,0 +1,48 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.deck {
+  background-color: $white;
+  padding: 0 1rem;
+  @include tablet {
+    padding: 0;
+  }
+  @include desktop {
+    width: 63.75rem;
+    margin: 0 auto;
+  }
+  &__title {
+    @include h1-page-header;
+    color: $black;
+  }
+  &__main {
+    @include tablet {
+      display: flex;
+      justify-content: flex-start;
+    }
+    @include desktop {
+      justify-content: center;
+      gap: 2rem;
+    }
+  }
+  &__header {
+    @include tablet {
+      max-width: 30vw;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 2rem;
+      height: 50vw;
+    }
+  }
+  &__commander,
+  &__price {
+    @include h2-subheader;
+    color: $black;
+  }
+  &__list {
+    max-width: 60vw;
+  }
+  &__commander {
+    margin-top: 0;
+  }
+}
