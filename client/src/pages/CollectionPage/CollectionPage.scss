@@ -2,6 +2,7 @@
 @use "../../styles/partials/variables" as *;
 
 .collection {
+  margin-top: 2rem;
   background-color: $white;
   display: flex;
   flex-direction: column;

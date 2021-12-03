@@ -2,6 +2,14 @@
 @use "../../styles/partials/variables" as *;
 
 .home {
+  &__title {
+    @include h1-page-header;
+    color: $black;
+  }
+  &__welcome {
+    @include h2-subheader;
+    color: $black;
+  }
   &__sign-up {
     width: 8.75rem;
     padding: 0.5rem 0.5rem;
@@ -15,6 +23,10 @@
     margin-top: 2rem;
   }
   &__links {
+    &__title {
+      @include h2-subheader;
+      color: $black;
+    }
     &__list {
       display: flex;
       flex-direction: column;

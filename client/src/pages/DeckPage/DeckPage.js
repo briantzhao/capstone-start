@@ -78,7 +78,7 @@ export default class DeckPage extends Component {
             {this.state.commanders.map((commander) => {
               return <CardDisplay card={commander} />;
             })}
-            <h2 className="deck__price">Price: {this.state.price}</h2>
+            <h2 className="deck__price">Deck Price: {this.state.price}</h2>
           </article>
           <article className="deck__list">
             <CardTable editable={false} cardsList={this.state.deck.list} />

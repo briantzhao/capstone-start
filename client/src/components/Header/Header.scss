@@ -16,6 +16,7 @@
     &-title {
       padding-left: 0.25rem;
       @include h3-labels-links-buttons;
+      color: $white;
     }
   }
   &__nav__list {

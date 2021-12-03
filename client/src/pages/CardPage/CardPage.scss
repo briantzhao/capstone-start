@@ -2,16 +2,16 @@
 @use "../../styles/partials/variables" as *;
 
 .card-page {
+  margin-top: 2rem;
   background-color: $white;
   padding: 0 1rem;
   @include desktop {
     width: 63.75rem;
-    margin: 0 auto;
+    margin: 2rem auto;
   }
   &__title {
-    @include desktop {
-      margin-top: 2rem;
-    }
+    @include h1-page-header;
+    color: $black;
   }
   &__picture {
     @include desktop {
@@ -37,6 +37,11 @@
     @include tablet {
       text-align: left;
     }
+  }
+  &__price,
+  &__subtitle {
+    @include h2-subheader;
+    color: $black;
   }
   &__price {
     text-align: center;

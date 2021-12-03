@@ -2,10 +2,15 @@
 @use "../../styles/partials/variables" as *;
 
 .signup-form {
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  &__title {
+    @include h1-page-header;
+    color: $black;
+  }
   &__name,
   &__creds {
     display: flex;
