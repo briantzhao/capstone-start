@@ -34,6 +34,7 @@ export default class CardPage extends Component {
   //queries decks route to get decks that include this card in their list
   //renders decks as a list of links
   componentDidMount() {
+    window.scrollTo(0, 0);
     axios
       .get(`${API_URL}cards/id/${this.props.match.params.uid}`)
       .then(({ data }) => {
@@ -80,16 +81,16 @@ export default class CardPage extends Component {
             <div className="card-page__prices">
               <h2 className="card-page__subtitle">Prices</h2>
               <p className="card-page__price">
-                Non-Foil: $
+                Non-Foil:
                 {this.state.card.prices.usd
-                  ? this.state.card.prices.usd
-                  : "Unavailable"}
+                  ? ` $${this.state.card.prices.usd}`
+                  : " Unavailable"}
               </p>
               <p className="card-page__price">
-                Foil: $
+                Foil:
                 {this.state.card.prices.usdFoil
-                  ? this.state.card.prices.usdFoil
-                  : "Unavailable"}
+                  ? ` $${this.state.card.prices.usdFoil}`
+                  : " Unavailable"}
               </p>
             </div>
             <div className="card-page__decks">

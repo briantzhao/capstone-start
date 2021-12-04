@@ -63,6 +63,10 @@ export default class DeckPage extends Component {
       });
   }
 
+  handleTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   render() {
     if (this.state.deck.length === 0) {
       return <h1 classname="loading">Loading...</h1>;
@@ -76,17 +80,22 @@ export default class DeckPage extends Component {
               Commanders:{" "}
               {this.state.deck.commanderNames === []
                 ? "None"
-                : this.state.commanderNames.join("/")}
+                : this.state.commanderNames.join(" / ")}
             </h2>
-            {this.state.commanders.map((commander) => {
-              return <CardDisplay card={commander} />;
-            })}
+            <div className="deck__commander__images">
+              {this.state.commanders.map((commander) => {
+                return <CardDisplay card={commander} />;
+              })}
+            </div>
             <h2 className="deck__price">Deck Price: {this.state.price}</h2>
           </article>
           <article className="deck__list">
             <CardTable editable={false} cardsList={this.state.deck.list} />
           </article>
         </section>
+        <button className="deck__btn--top" onClick={this.handleTop}>
+          Back to Top
+        </button>
       </main>
     );
   }
