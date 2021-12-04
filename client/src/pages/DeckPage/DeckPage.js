@@ -63,6 +63,7 @@ export default class DeckPage extends Component {
       });
   }
 
+  //onClick for Back to Top button
   handleTop = () => {
     window.scrollTo(0, 0);
   };
