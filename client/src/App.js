@@ -44,7 +44,7 @@ class App extends Component {
   handleLogout = () => {
     sessionStorage.removeItem("token");
     this.setState({ loggedIn: false, user: null });
-    alert("Thank you for using Sylvan Library. See you next time!");
+    // alert("Thank you for using Sylvan Library. See you next time!");
   };
 
   //on login, creates token in sessionStorage and updates state

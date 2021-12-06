@@ -92,11 +92,33 @@ export default class CardPage extends Component {
                   ? ` $${this.state.card.prices.usdFoil}`
                   : " Unavailable"}
               </p>
+              {this.state.card.tcgplayerID && (
+                <a
+                  href={`https://www.tcgplayer.com/product/${this.state.card.tcgplayerID}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <button className="card-page__btn--tcgplayer">
+                    Check on TCGplayer
+                  </button>
+                </a>
+              )}
             </div>
             <div className="card-page__decks">
               <h2 className="card-page__subtitle">
                 Decks Using {this.state.card.name}
               </h2>
+              {this.state.card.edhrec && (
+                <a
+                  href={`${this.state.card.edhrec}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <button className="card-page__btn--edhrec">
+                    Check on EDHRec
+                  </button>
+                </a>
+              )}
               <ul className="card-page__decklists">
                 {this.state.decks === "None" ? (
                   <h3 className="card-page__no-decks">None</h3>

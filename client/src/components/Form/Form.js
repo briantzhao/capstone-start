@@ -45,6 +45,7 @@ export default class Form extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     //checks if a card ID was passed in URL
     //signifies that we're trying to edit a card
     //if so, grab the card data from collections route
@@ -206,7 +207,7 @@ export default class Form extends Component {
           { quantity, setID, set: setName, foil, uid: cardUID }
         )
         .then(() => {
-          alert("Card updated!");
+          // alert("Card updated!");
         })
         .catch((err) => {
           console.log(err);
