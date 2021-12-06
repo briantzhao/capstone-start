@@ -31,13 +31,13 @@ export default class CardDisplay extends Component {
               flipDirection="horizontal"
             >
               <img
-                className="card-display__img"
+                className="card-display__img card-display__img--flip"
                 src={this.props.card.cardFaces[0].imageURIs.normal}
                 alt={this.props.card.name}
                 onClick={this.handleClick}
               />
               <img
-                className="card-display__img"
+                className="card-display__img card-display__img--flip"
                 src={this.props.card.cardFaces[1].imageURIs.normal}
                 alt={this.props.card.name}
                 onClick={this.handleClick}

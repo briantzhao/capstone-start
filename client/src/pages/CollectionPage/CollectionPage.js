@@ -41,6 +41,12 @@ export default class CollectionPage extends Component {
         console.log(err);
       });
   };
+
+  //onClick for Back to Top button
+  handleTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   render() {
     if (this.state.collection === null) {
       return <h1 className="loading">Loading...</h1>;
@@ -57,6 +63,9 @@ export default class CollectionPage extends Component {
           getItem={this.getItem}
           userid={this.state.userid}
         />
+        <button className="collection__btn--top" onClick={this.handleTop}>
+          Back to Top
+        </button>
       </main>
     );
   }

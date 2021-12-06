@@ -54,7 +54,7 @@ export default class LoginPage extends Component {
       .catch((err) => {
         console.log(err);
       });
-    alert("Login Successful!");
+    // alert("Login Successful!");
     this.props.history.push("/");
   };
   render() {

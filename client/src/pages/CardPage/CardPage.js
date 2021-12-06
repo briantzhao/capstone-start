@@ -34,6 +34,7 @@ export default class CardPage extends Component {
   //queries decks route to get decks that include this card in their list
   //renders decks as a list of links
   componentDidMount() {
+    window.scrollTo(0, 0);
     axios
       .get(`${API_URL}cards/id/${this.props.match.params.uid}`)
       .then(({ data }) => {
@@ -80,22 +81,44 @@ export default class CardPage extends Component {
             <div className="card-page__prices">
               <h2 className="card-page__subtitle">Prices</h2>
               <p className="card-page__price">
-                Non-Foil: $
+                Non-Foil:
                 {this.state.card.prices.usd
-                  ? this.state.card.prices.usd
-                  : "Unavailable"}
+                  ? ` $${this.state.card.prices.usd}`
+                  : " Unavailable"}
               </p>
               <p className="card-page__price">
-                Foil: $
+                Foil:
                 {this.state.card.prices.usdFoil
-                  ? this.state.card.prices.usdFoil
-                  : "Unavailable"}
+                  ? ` $${this.state.card.prices.usdFoil}`
+                  : " Unavailable"}
               </p>
+              {this.state.card.tcgplayerID && (
+                <a
+                  href={`https://www.tcgplayer.com/product/${this.state.card.tcgplayerID}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <button className="card-page__btn--tcgplayer">
+                    Check on TCGplayer
+                  </button>
+                </a>
+              )}
             </div>
             <div className="card-page__decks">
               <h2 className="card-page__subtitle">
                 Decks Using {this.state.card.name}
               </h2>
+              {this.state.card.edhrec && (
+                <a
+                  href={`${this.state.card.edhrec}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <button className="card-page__btn--edhrec">
+                    Check on EDHRec
+                  </button>
+                </a>
+              )}
               <ul className="card-page__decklists">
                 {this.state.decks === "None" ? (
                   <h3 className="card-page__no-decks">None</h3>
