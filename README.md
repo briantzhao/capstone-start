@@ -68,6 +68,13 @@ cd capstone-start
 
 To create default-cards.json, download the provide JSON file (Default Cards) from Scryfall's website: https://scryfall.com/docs/api/bulk-data
 
+Then, to create default-cards-filtered.json:
+
+```
+cd server/data
+node cleanCards.js
+```
+
 Add values to .env
 
 - PORT should be set to a port number
@@ -78,7 +85,7 @@ If nodemon is not installed, substitute nodemon command with node index.js
 In Git Bash:
 
 ```
-cd server
+cd ..
 npm install
 nodemon index.js
 ```

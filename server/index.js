@@ -8,8 +8,7 @@ const deckRoutes = require("./routes/deckRoutes");
 const collectionRoutes = require("./routes/collectionRoutes");
 const userRoutes = require("./routes/userRoutes");
 
-//use port 8080
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8080;
 
 app.use(cors());
 
