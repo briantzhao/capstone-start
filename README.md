@@ -57,6 +57,13 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Installation
 
+To download the project code, either download the zip file from the repo, or click the Code button, copy the repo link, and paste it in the following instructions below:
+
+```
+git clone <repo link>
+cd capstone-start
+```
+
 ### Server
 
 To create default-cards.json, download the provide JSON file (Default Cards) from Scryfall's website: https://scryfall.com/docs/api/bulk-data
